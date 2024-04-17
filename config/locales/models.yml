@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      user: Usuário
+    attributes:
+      user:
+        roles:
+          client: 'Cliente'
+          buffet_owner: 'Dono de Buffet'

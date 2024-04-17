@@ -9,9 +9,25 @@
 
     <%= stylesheet_link_tag "application" %>
   </head>
-
   <body>
+    <header>
+      <div>
+        <span>Cadê Buffet?</span>
+      </div>
+      <nav>
+        <% if user_signed_in? %>
+          <span><%= button_to 'Sair', destroy_user_session_path, method: :delete %></span>
+        <% else %>
+          <span><%= link_to 'Criar uma conta', new_user_registration_path %></span>
+          <span><%= link_to 'Entrar', new_user_session_path %></span>
+        <% end %>
+      </nav>
+    </header>
     <main class="container mx-auto mt-28 px-5 flex">
+      <div>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </div>
       <%= yield %>
     </main>
   </body>
