@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'Usuário se autentica' do
   it 'com sucesso' do
-    User.create!(email: 'janne@email.com', password: 'janne1')
+    User.create!(role: 'buffet_owner', email: 'jadne@email.com', password: 'janne1')
 
     visit root_path
     click_on 'Entrar'
-    fill_in 'E-mail', with: 'janne@email.com'
+    fill_in 'E-mail', with: 'jadne@email.com'
     fill_in 'Senha', with: 'janne1'
     within 'form' do
       click_on 'Entrar'
@@ -19,11 +19,11 @@ describe 'Usuário se autentica' do
     end
   end
   it 'e faz logout' do
-    User.create!(email: 'janne@email.com', password: 'janne1')
+    User.create!(role: 'buffet_owner', email: 'jadne@email.com', password: 'janne1')
     
     visit root_path
     click_on 'Entrar'
-    fill_in 'E-mail', with: 'janne@email.com'
+    fill_in 'E-mail', with: 'jadne@email.com'
     fill_in 'Senha', with: 'janne1'
     within('form') do
       click_on 'Entrar'

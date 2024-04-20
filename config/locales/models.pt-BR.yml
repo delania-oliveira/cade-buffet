@@ -1,0 +1,24 @@
+pt-BR:
+  activerecord:
+    models:
+      buffet: 'Buffet'
+      user: 'Usuário'
+    attributes:
+      buffet:
+        corporate_name: 'Razão Social'
+        brand_name: 'Nome Fantasia'
+        registration_number: 'CNPJ'
+        telephone: 'Telefone'
+        email: 'E-mail'
+        address: 'Endereço'
+        district: 'Bairro'
+        cep: 'CEP'
+        city: 'Cidade'
+        state: 'Estado'
+        description: 'Descrição'
+        payment_methods: 'Meios de Pagamento'
+      user:
+        roles:
+          client: 'Cliente'
+          buffet_owner: 'Dono de Buffet'
+      
