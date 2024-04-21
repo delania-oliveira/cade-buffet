@@ -1,0 +1,12 @@
+<h1>Cadastre um tipo de evento</h1>
+
+<% if(@event_type.errors.any?) %>
+  <p>Verifique os erros a seguir:</p>
+  <ul>
+    <% @event_type.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= render 'form' %>

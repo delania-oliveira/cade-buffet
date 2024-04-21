@@ -1,0 +1,57 @@
+<div>
+  <section>
+    <h2>Detalhes do Evento</h2>
+
+    <div>
+      <span>Nome do evento:</span>
+      <span><%= @event_type.name %></span>
+    </div>
+    <div>
+      <span>Descrição:</span>
+      <span><%= @event_type.description %></span>
+    </div>
+    <div>
+      <span>Capacidade mínima de pessoas:</span>
+      <span><%= @event_type.capacity_min %></span>
+    </div>
+    <div>
+      <span>Capacidade máxima de pessoas:</span>
+      <span><%= @event_type.capacity_max %></span>
+    </div>
+    <div>
+      <span>Duração em minutos:</span>
+      <span><%= @event_type.duration %></span>
+    </div>
+    <div>
+      <span>Tipo de cardápio:</span>
+      <span><%= @event_type.food_menu %></span>
+    </div>
+    <div>
+      <span>Serviços Oferecidos:</span>
+      <% if @event_type.alcoholic_drinks? %>
+        <span><%= EventType.human_attribute_name(:alcoholic_drinks) %></span>
+      <% end %>
+      <% if @event_type.decoration? %>
+        <span><%= EventType.human_attribute_name(:decoration) %></span>
+      <% end %>
+      <% if @event_type.parking_service? %>
+        <span><%= EventType.human_attribute_name(:parking_service) %></span>
+      <% end %>
+    </div>
+    <div>
+      <span>Flexibilidade de local:</span>
+      <% if @event_type.buffet_exclusive_address? %>
+        <span><%= EventType.human_attribute_name(:buffet_exclusive_address) %></span>
+      <% end %>
+      <% if @event_type.client_specified_address? %>
+        <span><%= EventType.human_attribute_name(:client_specified_address) %></span>
+      <% end %>
+    </div>
+  
+    <% if current_user.buffet_owner? && @event_type.buffet == current_user.buffet %>
+      <span><%= link_to 'Editar Informações', edit_event_type_path(@event_type) %></span>
+      <span><%= link_to 'Voltar', buffet_path(@event_type.buffet) %></span>
+    <% end %>
+      <span><%= link_to 'Voltar', root_path %></span>
+  </section>
+</div>

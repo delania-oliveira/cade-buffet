@@ -6,7 +6,6 @@ class BuffetsController < ApplicationController
   def new
     if user_signed_in? && current_user.buffet_owner? && !current_user.buffet
       @buffet = Buffet.new
-      @users = User.all
     else
      redirect_to root_path, alert: 'Você não tem permissão para criar um buffet'
     end

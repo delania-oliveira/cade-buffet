@@ -1,5 +1,7 @@
 class Buffet < ApplicationRecord
   belongs_to :user
+  has_many :event_types
+  
   validates :corporate_name, :brand_name, :registration_number, :telephone, 
             :email, :address, :district, :cep, :city, :state, :description, 
             :payment_methods, presence: true

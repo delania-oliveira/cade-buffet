@@ -57,21 +57,16 @@
 </div>
 
 <div>
+  <div>
+    <span><%= link_to 'Criar Evento', new_event_type_path %></span>
+  </div>
   <section>
     <h3>Lista de Eventos</h3>
-
+    <% @buffet.event_types.each do |event| %>
     <div>
-      <span>Bordas de ouro</span>
-      <span>Ver Detalhes</span>
+      <span><%= event.name %></span>
+      <span><%= link_to 'Ver Detalhes', event_type_path(event) %></span>
     </div>
-    <div>
-      <span>Aniversário de 15 anos</span>
-      <span>Ver Detalhes</span>
-    </div>
-    <div>
-      <span>Formatura</span>
-      <span>Ver Detalhes</span>
-    </div>
-
+    <% end %>
   </section>
 </div>

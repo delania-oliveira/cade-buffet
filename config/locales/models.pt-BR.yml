@@ -3,7 +3,12 @@ pt-BR:
     models:
       buffet: 'Buffet'
       user: 'Usuário'
+      event_type: 'Tipo de Evento'
     attributes:
+      user:
+        roles:
+          client: 'Cliente'
+          buffet_owner: 'Dono de Buffet'
       buffet:
         corporate_name: 'Razão Social'
         brand_name: 'Nome Fantasia'
@@ -17,8 +22,15 @@ pt-BR:
         state: 'Estado'
         description: 'Descrição'
         payment_methods: 'Meios de Pagamento'
-      user:
-        roles:
-          client: 'Cliente'
-          buffet_owner: 'Dono de Buffet'
-      
+      event_type: 
+        name: 'Nome do evento'
+        description: 'Descrição'
+        capacity_min: 'Capacidade mínima de pessoas'
+        capacity_max: 'Capacidade máxima de pessoas'
+        duration: 'Duração em minutos'
+        food_menu: 'Tipo de cardápio'
+        alcoholic_drinks: 'Bebidas alcoólicas'
+        decoration: 'Decoração'
+        parking_service: 'Serviço de Estacionamento/Valet'
+        buffet_exclusive_address: 'Realizado exclusivamente no endereço do buffet'
+        client_specified_address: 'Aceita endereço indicado pelo contratante'
