@@ -37,7 +37,6 @@ describe 'Dono de buffet cadastra um tipo de evento' do
     
 
     expect(current_path).to eq event_type_path(EventType.last)
-    
     expect(page).to have_content 'Evento cadastrado com sucesso!'
     expect(page).to have_content 'Detalhes do Evento'
     expect(page).to have_content 'Nome do evento: Evento Corporativo'

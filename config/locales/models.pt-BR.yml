@@ -4,6 +4,7 @@ pt-BR:
       buffet: 'Buffet'
       user: 'Usuário'
       event_type: 'Tipo de Evento'
+      base_price: 'Preço Base'
     attributes:
       user:
         roles:
@@ -34,3 +35,8 @@ pt-BR:
         parking_service: 'Serviço de Estacionamento/Valet'
         buffet_exclusive_address: 'Realizado exclusivamente no endereço do buffet'
         client_specified_address: 'Aceita endereço indicado pelo contratante'
+      base_price:
+        title: 'Título'
+        minimum_value: 'Valor mínimo'
+        additional_value_per_person: 'Valor adicional por pessoa'
+        extra_hour_value: 'Valor por hora extra'

@@ -1,0 +1,28 @@
+<div>
+  <section>
+    <h2>Preço-base</h2>
+
+    <div>
+      <span>Título:</span>
+      <span><%= @base_price.title %></span>
+    </div>
+    <div>
+      <span>Valor mínimo:</span>
+      <span><%= number_to_currency(@base_price.minimum_value) %></span>
+    </div>
+    <div>
+      <span>Valor adicional por pessoa:</span>
+      <span><%= number_to_currency(@base_price.additional_value_per_person) %></span>
+    </div>
+    <div>
+      <span>Valor por hora extra:</span>
+      <span><%= number_to_currency(@base_price.extra_hour_value) %></span>
+    </div>
+    
+    <% if current_user.buffet_owner? && @base_price.event_type.buffet == current_user.buffet %>
+      <span><%= link_to 'Editar Valores', edit_base_price_path(@base_price) %></span>
+      <span><%= link_to 'Voltar', buffet_path(@base_price.event_type.buffet) %></span>
+    <% end %>
+      <span><%= link_to 'Voltar', root_path %></span>
+  </section>
+</div>

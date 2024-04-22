@@ -47,9 +47,22 @@
         <span><%= EventType.human_attribute_name(:client_specified_address) %></span>
       <% end %>
     </div>
-  
+
+    <section>
+      <h3>Valores do preço-base do evento</h3>
+      <% @event_type.base_prices.each do |config| %>
+        <div>
+          <span><%= config.title %></span>
+          <span><%= link_to 'Detalhes dos valores', base_price_path(config) %></span>
+        </div>
+      <% end %>
+    </section>
+
     <% if current_user.buffet_owner? && @event_type.buffet == current_user.buffet %>
       <span><%= link_to 'Editar Informações', edit_event_type_path(@event_type) %></span>
+      <% if @event_type.base_prices.count < 2 %>
+        <span><%= link_to 'Definir preço-base', new_event_type_base_price_path(@event_type) %></span>
+      <% end %>   
       <span><%= link_to 'Voltar', buffet_path(@event_type.buffet) %></span>
     <% end %>
       <span><%= link_to 'Voltar', root_path %></span>

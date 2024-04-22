@@ -1,0 +1,33 @@
+<h1>Cadastre um preço-base</h1>
+
+<% if(@base_price.errors.any?) %>
+  <p>Verifique os erros a seguir:</p>
+  <ul>
+    <% @base_price.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with(model: [@event_type, @base_price]) do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :minimum_value %>
+    <%= f.number_field :minimum_value %>
+  </div>
+  <div>
+    <%= f.label :additional_value_per_person %>
+    <%= f.number_field :additional_value_per_person %>
+  </div>
+  <div>
+    <%= f.label :extra_hour_value %>
+    <%= f.number_field :extra_hour_value %>
+  </div>
+  
+  <div>
+      <%= f.submit 'Cadastrar preço-base' %>
+  </div>
+<% end %>
