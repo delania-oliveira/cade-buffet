@@ -4,13 +4,23 @@
   <%= render "devise/shared/error_messages", resource: resource %>
   
   <div class="field">
-    <%= f.label :role, 'Tipo de Conta' %><br />
+    <%= f.label :role, 'Tipo de Conta' %>
     <%= f.select :role, 
         options_for_select(
           User.roles.keys.map {
             |role| [t("activerecord.attributes.user.roles.#{role}"), role]
-          },'buffet_owner'
-        ) %>
+          },), {}, { id: 'user_role' } 
+    %>
+  </div>
+
+  <div class="field" id="name-field" style="display: block">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field" id="individual-registration-field" style="display: block">
+    <%= f.label :individual_registration %>
+    <%= f.text_field :individual_registration %>
   </div>
 
   <div class="field">
@@ -37,3 +47,23 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var roleSelect = document.querySelector('#user_role')
+  var nameField = document.querySelector('#name-field')
+  var indivualRegistrationField = document.querySelector('#individual-registration-field')
+  
+
+    roleSelect.addEventListener('change', function() {
+      var role = roleSelect.value
+      if (role === 'buffet_owner') {
+        nameField.style.display = 'none'
+        indivualRegistrationField.style.display = 'none'
+      } else {
+        nameField.style.display = 'block'
+        indivualRegistrationField.style.display = 'block'
+      }
+    })
+  })
+</script>

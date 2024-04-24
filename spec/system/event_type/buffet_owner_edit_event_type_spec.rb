@@ -175,7 +175,47 @@ describe 'Dono de Buffet edita o tipo de evento' do
     visit edit_event_type_path(event_type)
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Você não tem permissão para editar o evento que pertence a outro Dono de Buffet'
+    expect(page).to have_content 'Você não tem permissão para acessar essa página.'
     
+  end
+  context 'Usuário Cliente edita um tipo de evento' do
+    it 'sem permissão' do
+      client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'janne1')
+      buffet_owner = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      buffet = buffet_owner.create_buffet!(
+        corporate_name: 'Buffet Estrela Dourada Ltda',
+        brand_name: 'Buffet Estrela Dourada Eventos',
+        registration_number: '12345678000190',
+        telephone:'11987654321',
+        email:'contato@estreladouradaeventos.com.br',
+        address: 'Rua das Flores, 123',
+        district:'Centro',
+        cep:'12345678',
+        city:'Cidade Luz',
+        state:'São Paulo',
+        description:'O Buffet Eventos Estrela Dourada é um lugar mágico onde seus sonhos se tornam realidade. Com ambientes elegantes e serviços de alta qualidade, estamos prontos para tornar seu evento inesquecível',
+        payment_methods: 'Cartões de crédito, débito, transferência bancária, Pix e dinheiro'
+      )
+      event_type = buffet.event_types.create!(
+        name: 'Conferência de Tecnologia',
+        description: 'Uma conferência para discutir as últimas tendências em tecnologia.',
+        capacity_min: 100,
+        capacity_max: 500,
+        duration: 240,
+        food_menu: 'Coffee break',
+        alcoholic_drinks: false,
+        decoration: true,
+        parking_service: true,
+        buffet_exclusive_address: false,
+        client_specified_address: true
+      )
+
+      login_as(client)
+
+      visit edit_event_type_path(event_type)
+  
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Você não tem permissão para acessar essa página.'
+    end
   end
 end

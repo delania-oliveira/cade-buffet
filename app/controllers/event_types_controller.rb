@@ -7,7 +7,7 @@ class EventTypesController < ApplicationController
     if user_signed_in? && current_user.buffet_owner? && current_user.buffet
       @event_type = EventType.new
     else
-     redirect_to root_path, alert: 'Você não tem permissão para criar um Evento'
+     redirect_to root_path, alert: 'Você não tem permissão para acessar essa página.'
     end
   end
 
@@ -35,7 +35,7 @@ class EventTypesController < ApplicationController
        render 'edit'
     else
       redirect_to root_path,
-      notice: 'Você não tem permissão para editar o evento que pertence a outro Dono de Buffet'
+      notice: 'Você não tem permissão para acessar essa página.'
     end
   end
 

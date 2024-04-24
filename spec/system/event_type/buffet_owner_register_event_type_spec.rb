@@ -88,4 +88,31 @@ describe 'Dono de buffet cadastra um tipo de evento' do
     expect(page).to have_content 'Marque pelo menos uma opção de localização'
     
   end
+  context 'Usuário Cliente cadastra um tipo de evento' do
+    it 'sem permissão' do
+      client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'janne1')
+      buffet_owner = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      buffet = buffet_owner.create_buffet!(
+        corporate_name: 'Buffet Estrela Dourada Ltda',
+        brand_name: 'Buffet Estrela Dourada Eventos',
+        registration_number: '12345678000190',
+        telephone:'11987654321',
+        email:'contato@estreladouradaeventos.com.br',
+        address: 'Rua das Flores, 123',
+        district:'Centro',
+        cep:'12345678',
+        city:'Cidade Luz',
+        state:'São Paulo',
+        description:'O Buffet Eventos Estrela Dourada é um lugar mágico onde seus sonhos se tornam realidade. Com ambientes elegantes e serviços de alta qualidade, estamos prontos para tornar seu evento inesquecível',
+        payment_methods: 'Cartões de crédito, débito, transferência bancária, Pix e dinheiro'
+      )
+
+      login_as(client)
+
+      visit new_event_type_path(buffet)
+  
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Você não tem permissão para acessar essa página.'
+    end
+  end
 end

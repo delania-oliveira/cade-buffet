@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'Quantidade de Buffet' do
+  describe 'Sobre regras' do
     it 'Usuario dono de buffet só pode ter um buffet cadastrado' do 
       user = User.create!(role: 'buffet_owner', email: 'jsne@email.com', password: 'janne1')
       user.create_buffet!(
@@ -35,6 +35,13 @@ RSpec.describe User, type: :model do
       )
 
       result = buffet.valid?
+
+      expect(result).to eq false
+    end
+    it 'Visitante não pode se cadastrar como Cliente com CPF inválido' do
+      user = User.new(role: 'client', name: 'Janne', individual_registration: '4324605036', email: 'jsne@email.com', password: 'janne1')
+      
+      result = user.valid?
 
       expect(result).to eq false
     end

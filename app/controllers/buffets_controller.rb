@@ -7,7 +7,7 @@ class BuffetsController < ApplicationController
     if user_signed_in? && current_user.buffet_owner? && !current_user.buffet
       @buffet = Buffet.new
     else
-     redirect_to root_path, alert: 'Você não tem permissão para criar um buffet'
+     redirect_to root_path, alert: 'Você não tem permissão para acessar essa página.'
     end
   end
 
@@ -34,7 +34,7 @@ class BuffetsController < ApplicationController
       render 'edit'
     else
       redirect_to root_path,
-      notice: 'Você não tem permissão para editar o buffet de outro Dono de Buffet'
+      notice: 'Você não tem permissão para acessar essa página.'
     end
   end
 

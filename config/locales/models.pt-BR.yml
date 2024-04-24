@@ -7,6 +7,8 @@ pt-BR:
       base_price: 'Preço Base'
     attributes:
       user:
+        name: 'Nome'
+        individual_registration: 'CPF'
         roles:
           client: 'Cliente'
           buffet_owner: 'Dono de Buffet'
