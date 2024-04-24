@@ -40,8 +40,7 @@ describe 'Dono de Buffet edita o preço-base do evento' do
     
     visit buffet_path(buffet)
     click_on 'Ver Detalhes', :match => :first
-    click_on 'Detalhes dos valores', :match => :first
-    click_on 'Editar Valores'
+    click_on 'Editar valores', :match => :first
 
     expect(page).to have_content 'Editar valores do preço-base'
     expect(page).to have_field 'Título'

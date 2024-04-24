@@ -110,5 +110,67 @@ describe 'Visualização do Buffet:' do
       expect(page).not_to  have_link 'Editar Informações'
       expect(page).not_to  have_link 'Criar Evento'
     end
+    it 'e vê todos os tipos de festas disponíveis' do
+      user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'janne1')
+      buffet = user.create_buffet!(
+        corporate_name: 'Buffet Harmonia dos Sabores Ltda',
+        brand_name: 'Buffet Harmonia dos Sabores Eventos',
+        registration_number: '13579246000190',
+        telephone: '1133334444',
+        email: 'contato@harmoniadosabores.com.br',
+        address: 'Rua das Delícias, 789',
+        district: 'Vila Gastronômica',
+        cep: '98765432',
+        city: 'Cidade dos Sabores',
+        state: 'Minas Gerais',
+        description: 'O Buffet Eventos Harmonia dos Sabores proporciona uma combinação única de sabores e experiências para seu evento. Com menus personalizados e um ambiente acolhedor, estamos prontos para fazer do seu evento um verdadeiro sucesso.',
+        payment_methods: 'Cartões de crédito, débito, transferência bancária e dinheiro'
+      )
+      conference_event_type = buffet.event_types.create!(
+        name: 'Conferência de Negócios',
+        description: 'Uma conferência para discutir estratégias e tendências de negócios.',
+        capacity_min: 50,
+        capacity_max: 300,
+        duration: 180,
+        food_menu: 'Coffee break e almoço executivo',
+        alcoholic_drinks: false,
+        decoration: true,
+        parking_service: true,
+        buffet_exclusive_address: false,
+        client_specified_address: true
+      )
+      workshop_event_type = buffet.event_types.create!(
+        name: 'Workshop de Arte',
+        description: 'Um workshop para explorar técnicas de pintura e expressão artística.',
+        capacity_min: 20,
+        capacity_max: 50,
+        duration: 120,
+        food_menu: 'Lanches leves e bebidas',
+        alcoholic_drinks: false,
+        decoration: true,
+        parking_service: false,
+        buffet_exclusive_address: true,
+        client_specified_address: false
+      )
+      party_event_type = buffet.event_types.create!(
+        name: 'Festa de Aniversário',
+        description: 'Uma festa para celebrar um aniversário especial com amigos e familiares.',
+        capacity_min: 30,
+        capacity_max: 100,
+        duration: 300,
+        food_menu: 'Buffet completo e bar aberto',
+        alcoholic_drinks: true,
+        decoration: true,
+        parking_service: true,
+        buffet_exclusive_address: false,
+        client_specified_address: true
+      )
+     
+      visit buffet_path(buffet)
+    
+      expect(page).to  have_content 'Conferência de Negócios'
+      expect(page).to  have_content 'Festa de Aniversário'
+      expect(page).to  have_content 'Workshop de Arte'
+    end
   end
 end

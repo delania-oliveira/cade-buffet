@@ -115,5 +115,14 @@
         <span><%= @buffet.payment_methods %></span>
       </div>
     </section>
+    <section>
+      <h3>Lista de Eventos</h3>
+      <% @buffet.event_types.each do |event| %>
+      <div>
+        <span><%= event.name %></span>
+        <span><%= link_to 'Ver Detalhes', event_type_path(event) %></span>
+      </div>
+      <% end %>
+    </section>
   </div>
 <% end %>

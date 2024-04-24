@@ -49,16 +49,25 @@
     </div>
 
     <section>
-      <h3>Valores do preço-base do evento</h3>
-      <% @event_type.base_prices.each do |config| %>
-        <div>
-          <span><%= config.title %></span>
-          <span><%= link_to 'Detalhes dos valores', base_price_path(config) %></span>
-        </div>
+      <h3>Valores do preço-base</h3>
+      <% if true %>
+        <% @event_type.base_prices.each do |config| %>
+          <div>
+            <span><%= config.title %></span>
+            <span>Valor mínimo: <%= number_to_currency(config.minimum_value) %></span>
+            <span>Valor adicional por pessoa: <%= number_to_currency(config.additional_value_per_person) %></span>
+            <span>Valor por hora extra: <%= number_to_currency(config.extra_hour_value) %></span>
+            <% if current_user&.buffet_owner? && @event_type.buffet == current_user.buffet %>
+              <span><%= link_to 'Editar valores', edit_base_price_path(config) %></span>
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <p>Nenhum preço-base foi cadastrado</p>
       <% end %>
     </section>
 
-    <% if current_user.buffet_owner? && @event_type.buffet == current_user.buffet %>
+    <% if current_user&.buffet_owner? && @event_type.buffet == current_user.buffet %>
       <span><%= link_to 'Editar Informações', edit_event_type_path(@event_type) %></span>
       <% if @event_type.base_prices.count < 2 %>
         <span><%= link_to 'Definir preço-base', new_event_type_base_price_path(@event_type) %></span>
