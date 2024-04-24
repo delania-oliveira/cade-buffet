@@ -1,72 +1,119 @@
-<div>
-  <section>
-    <h2>Informações do Buffet</h2>
-
-    <div>
-      <span>Razão Social:</span>
-      <span><%= @buffet.corporate_name %></span>
-    </div>
-    <div>
-      <span>Nome Fantasia:</span>
-      <span><%= @buffet.brand_name %></span>
-    </div>
-    <div>
-      <span>CNPJ:</span>
-      <span><%= @buffet.registration_number %></span>
-    </div>
-    <div>
-      <span>Telefone:</span>
-      <span><%= @buffet.telephone %></span>
-    </div>
-    <div>
-      <span>E-mail:</span>
-      <span><%= @buffet.email %></span>
-    </div>
-    <div>
-      <span>Endereço:</span>
-      <span><%= @buffet.address %></span>
-    </div>
-    <div>
-      <span>Bairro:</span>
-      <span><%= @buffet.district %></span>
-    </div>
-    <div>
-      <span>CEP:</span>
-      <span><%= @buffet.cep %></span>
-    </div>
-    <div>
-      <span>Cidade:</span>
-      <span><%= @buffet.city %></span>
-    </div>
-    <div>
-      <span>Estado:</span>
-      <span><%= @buffet.state %></span>
-    </div>
-    <div>
-      <span>Descrição:</span>
-      <span><%= @buffet.description %></span>
-    </div>
-    <div>
-      <span>Meios de Pagamento:</span>
-      <span><%= @buffet.payment_methods %></span>
-    </div>
-    <% if current_user.buffet_owner? && @buffet == current_user.buffet %>
-      <span><%= link_to 'Editar Informações', edit_buffet_path %></span>
-    <% end %>
-  </section>
-</div>
-
-<div>
+<% if current_user&.buffet_owner? && @buffet == current_user.buffet %>
   <div>
-    <span><%= link_to 'Criar Evento', new_event_type_path %></span>
+    <section>
+      <h2>Informações do Buffet</h2>
+
+      <div>
+        <span>Razão Social:</span>
+        <span><%= @buffet.corporate_name %></span>
+      </div>
+      <div>
+        <span>Nome Fantasia:</span>
+        <span><%= @buffet.brand_name %></span>
+      </div>
+      <div>
+        <span>CNPJ:</span>
+        <span><%= @buffet.registration_number %></span>
+      </div>
+      <div>
+        <span>Telefone:</span>
+        <span><%= @buffet.telephone %></span>
+      </div>
+      <div>
+        <span>E-mail:</span>
+        <span><%= @buffet.email %></span>
+      </div>
+      <div>
+        <span>Endereço:</span>
+        <span><%= @buffet.address %></span>
+      </div>
+      <div>
+        <span>Bairro:</span>
+        <span><%= @buffet.district %></span>
+      </div>
+      <div>
+        <span>CEP:</span>
+        <span><%= @buffet.cep %></span>
+      </div>
+      <div>
+        <span>Cidade:</span>
+        <span><%= @buffet.city %></span>
+      </div>
+      <div>
+        <span>Estado:</span>
+        <span><%= @buffet.state %></span>
+      </div>
+      <div>
+        <span>Descrição:</span>
+        <span><%= @buffet.description %></span>
+      </div>
+      <div>
+        <span>Meios de Pagamento:</span>
+        <span><%= @buffet.payment_methods %></span>
+      </div>
+        <span><%= link_to 'Editar Informações', edit_buffet_path %></span>
+    </section>
   </div>
-  <section>
-    <h3>Lista de Eventos</h3>
-    <% @buffet.event_types.each do |event| %>
+
+  <div>
     <div>
-      <span><%= event.name %></span>
-      <span><%= link_to 'Ver Detalhes', event_type_path(event) %></span>
+      <span><%= link_to 'Criar Evento', new_event_type_path %></span>
     </div>
-    <% end %>
-  </section>
-</div>
+    <section>
+      <h3>Lista de Eventos</h3>
+      <% @buffet.event_types.each do |event| %>
+      <div>
+        <span><%= event.name %></span>
+        <span><%= link_to 'Ver Detalhes', event_type_path(event) %></span>
+      </div>
+      <% end %>
+    </section>
+  </div>
+<% else %>
+  <div>
+    <section>
+      <h2>Informações do Buffet</h2>
+
+      <div>
+        <span>Nome Fantasia:</span>
+        <span><%= @buffet.brand_name %></span>
+      </div>
+      <div>
+        <span>Descrição:</span>
+        <span><%= @buffet.description %></span>
+      </div>
+      <div>
+        <span>CNPJ:</span>
+        <span><%= @buffet.registration_number %></span>
+      </div>
+      <div>
+        <span>Telefone:</span>
+        <span><%= @buffet.telephone %></span>
+      </div>
+      <div>
+        <span>E-mail:</span>
+        <span><%= @buffet.email %></span>
+      </div>
+      <div>
+        <span>Endereço:</span>
+        <span><%= @buffet.address %> - <%= @buffet.district %></span>
+      </div>
+      <div>
+        <span>CEP:</span>
+        <span><%= @buffet.cep %></span>
+      </div>
+      <div>
+        <span>Cidade:</span>
+        <span><%= @buffet.city %></span>
+      </div>
+      <div>
+        <span>Estado:</span>
+        <span><%= @buffet.state %></span>
+      </div>
+      <div>
+        <span>Meios de Pagamento:</span>
+        <span><%= @buffet.payment_methods %></span>
+      </div>
+    </section>
+  </div>
+<% end %>

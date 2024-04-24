@@ -1,1 +1,11 @@
-<h1>nada pra ver aqui por enquanto...<h1>
+<h1>Buffets<h1>
+
+<% @buffets.each do |buffet| %>
+  <h3><%= link_to buffet.brand_name, buffet %></h3>
+  <span>Cidade: <%= buffet.city %></span>
+  <span>Estado: <%= buffet.state %></span>
+<% end %>
+
+<% if @buffets.empty? %>
+  <p>Não existem Buffets cadastrados</p>
+<% end %>
