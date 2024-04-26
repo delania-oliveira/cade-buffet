@@ -1,0 +1,14 @@
+<span><%= link_to 'Voltar para página inicial', root_path %></span>
+<h1>Resultado da Busca</h1>
+<span><%= @buffets.count %> <%= Buffet.model_name.human(count: @buffets.count).downcase %> 
+<%= t(:found, count: @buffets.count) %> para "<%= @query %>"</span>
+
+<div>
+  <% @buffets.each do |buffet| %>
+    <div>
+      <h3><%= link_to buffet.brand_name, buffet %></h3>
+      <span><%= buffet.city %></span>
+      <span><%= buffet.state %></span>
+    </div>
+  <% end %>
+</div>

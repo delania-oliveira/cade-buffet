@@ -15,7 +15,7 @@ describe 'Usuario visita a tela inicial' do
     end
   end
   it 'e vê a listagem de buffets' do
-    first_user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    first_user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     first_user.create_buffet!(
       corporate_name: 'Buffet Brilho Celestial Ltda',
       brand_name: 'Buffet Brilho Celestial Eventos',
@@ -30,7 +30,7 @@ describe 'Usuario visita a tela inicial' do
       description: 'O Buffet Eventos Brilho Celestial proporciona experiências únicas e memoráveis para tornar seu evento especial. Com uma equipe dedicada e espaços encantadores, estamos prontos para realizar seus sonhos.',
       payment_methods: 'Cartões de crédito, débito, transferência bancária e dinheiro'
     )
-    second_user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'janne1')
+    second_user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
     second_user.create_buffet!(
       corporate_name: 'Buffet Harmonia dos Sabores Ltda',
       brand_name: 'Buffet Harmonia dos Sabores Eventos',
@@ -45,7 +45,7 @@ describe 'Usuario visita a tela inicial' do
       description: 'O Buffet Eventos Harmonia dos Sabores proporciona uma combinação única de sabores e experiências para seu evento. Com menus personalizados e um ambiente acolhedor, estamos prontos para fazer do seu evento um verdadeiro sucesso.',
       payment_methods: 'Cartões de crédito, débito, transferência bancária e dinheiro'
     )
-    third_user = User.create!(role: 'buffet_owner', email: 'jina@email.com', password: 'janne1')
+    third_user = User.create!(role: 'buffet_owner', email: 'jina@email.com', password: 'password')
     third_user.create_buffet!(
       corporate_name: 'Buffet Sabor da Festa Ltda',
       brand_name: 'Buffet Sabor da Festa Eventos',

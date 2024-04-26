@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Dono de Buffet edita o Buffet' do
   it 'a partir da página de detalhes' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -37,7 +37,7 @@ describe 'Dono de Buffet edita o Buffet' do
     expect(page).to have_button 'Salvar alterações'
   end
   it 'com sucesso' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -63,7 +63,7 @@ describe 'Dono de Buffet edita o Buffet' do
     expect(page).to have_content 'Rua Vale das Flores, 123'
   end
   it 'e mantem os campos obrigátorios' do
-    user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -88,7 +88,7 @@ describe 'Dono de Buffet edita o Buffet' do
     expect(page).to have_content 'Não foi possível atualizar o Buffet'
   end
   it 'e é unico capaz de editar os dados do seu próprio buffet' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -103,7 +103,7 @@ describe 'Dono de Buffet edita o Buffet' do
       description:'O Buffet Eventos Estrela Dourada é um lugar mágico onde seus sonhos se tornam realidade. Com ambientes elegantes e serviços de alta qualidade, estamos prontos para tornar seu evento inesquecível',
       payment_methods: 'Cartões de crédito, débito, transferência bancária, Pix e dinheiro'
     )
-    second_user = User.create!(role: 'buffet_owner', email: 'janene@email.com', password: 'janne1')
+    second_user = User.create!(role: 'buffet_owner', email: 'janene@email.com', password: 'password')
     second_buffet = second_user.create_buffet!(
       corporate_name: 'Buffet Estrela Ltda',
       brand_name: 'Buffet Estrela Eventos',
@@ -127,8 +127,8 @@ describe 'Dono de Buffet edita o Buffet' do
   end
   context 'Usuário Cliente edita buffet' do
     it 'sem permissão' do
-      client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'janne1')
-      buffet_owner = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'password')
+      buffet_owner = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = buffet_owner.create_buffet!(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',

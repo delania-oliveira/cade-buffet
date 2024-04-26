@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário vê detalhes do preço-base de um evento' do
   it 'do evento do buffet do qual é dono' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -49,7 +49,7 @@ describe 'Usuário vê detalhes do preço-base de um evento' do
     expect(page).to have_link 'Voltar'
   end
   it 'do evento do buffet do qual não é dono' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -83,7 +83,7 @@ describe 'Usuário vê detalhes do preço-base de um evento' do
       additional_value_per_person: 150,
       extra_hour_value: 1000,
     )
-    second_user = User.create!(role: 'buffet_owner', email: 'joae@email.com', password: 'janne1')
+    second_user = User.create!(role: 'buffet_owner', email: 'joae@email.com', password: 'password')
     second_buffet = second_user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',

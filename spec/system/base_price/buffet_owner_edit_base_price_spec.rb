@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Dono de Buffet edita o preço-base do evento' do
   it 'a partir da página de detalhes do evento' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -50,7 +50,7 @@ describe 'Dono de Buffet edita o preço-base do evento' do
     expect(page).to have_button 'Salvar alterações'
   end
   it 'com sucesso' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -94,7 +94,7 @@ describe 'Dono de Buffet edita o preço-base do evento' do
     expect(page).to have_content 'Título: Feriados'
   end 
   it 'e mantem os campos obrigátorios' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -137,7 +137,7 @@ describe 'Dono de Buffet edita o preço-base do evento' do
     expect(page).to have_content 'Não foi possível atualizar o preço-base'
   end
   it 'e é unico capaz de editar os dados do seu próprio evento' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -171,7 +171,7 @@ describe 'Dono de Buffet edita o preço-base do evento' do
       additional_value_per_person: 150,
       extra_hour_value: 1000,
     )
-    second_user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'janne1')
+    second_user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
     second_buffet = second_user.create_buffet!(
       corporate_name: 'Buffet Estrela Ltda',
       brand_name: 'Buffet Estrela Eventos',
@@ -195,8 +195,8 @@ describe 'Dono de Buffet edita o preço-base do evento' do
   end
   context 'Usuário Cliente edita o preço-base' do
     it 'sem permissão' do
-      client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'janne1')
-      buffet_owner = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'password')
+      buffet_owner = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = buffet_owner.create_buffet!(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',

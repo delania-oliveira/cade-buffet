@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Dono de buffet cadastra um tipo de evento' do
   it 'com sucesso' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -56,7 +56,7 @@ describe 'Dono de buffet cadastra um tipo de evento' do
     expect(page).to have_link 'Voltar'
   end
   it 'com dados incompletos' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -90,8 +90,8 @@ describe 'Dono de buffet cadastra um tipo de evento' do
   end
   context 'Usuário Cliente cadastra um tipo de evento' do
     it 'sem permissão' do
-      client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'janne1')
-      buffet_owner = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'password')
+      buffet_owner = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = buffet_owner.create_buffet!(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',

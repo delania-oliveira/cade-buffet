@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Visualização do Buffet:' do
   context 'Usuário Dono de Buffet vê buffet cadastrado' do
     it 'a partir do sign in' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.create_buffet!(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -38,8 +38,8 @@ describe 'Visualização do Buffet:' do
       expect(page).to have_link 'Editar Informações'
     end
     it 'e não vê o botão "Editar Informações" na página de outro buffet' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
-      buffet = user.create_buffet!(
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
+      user.create_buffet!(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
         registration_number: '12345678000190',
@@ -53,7 +53,7 @@ describe 'Visualização do Buffet:' do
         description:'O Buffet Eventos Estrela Dourada é um lugar mágico onde seus sonhos se tornam realidade. Com ambientes elegantes e serviços de alta qualidade, estamos prontos para tornar seu evento inesquecível',
         payment_methods: 'Cartões de crédito, débito, transferência bancária, Pix e dinheiro'
       )
-      second_user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'janne1')
+      second_user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
       second_buffet = second_user.create_buffet!(
         corporate_name: 'Buffet Estrela Ltda',
         brand_name: 'Buffet Estrela Eventos',
@@ -77,7 +77,7 @@ describe 'Visualização do Buffet:' do
   end
   context 'Visitante vê buffet cadastrado' do
     it 'e vê detalhes do buffet' do
-      user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
       buffet = user.create_buffet!(
         corporate_name: 'Buffet Harmonia dos Sabores Ltda',
         brand_name: 'Buffet Harmonia dos Sabores Eventos',
@@ -111,7 +111,7 @@ describe 'Visualização do Buffet:' do
       expect(page).not_to  have_link 'Criar Evento'
     end
     it 'e vê todos os tipos de festas disponíveis' do
-      user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
       buffet = user.create_buffet!(
         corporate_name: 'Buffet Harmonia dos Sabores Ltda',
         brand_name: 'Buffet Harmonia dos Sabores Eventos',
@@ -126,7 +126,7 @@ describe 'Visualização do Buffet:' do
         description: 'O Buffet Eventos Harmonia dos Sabores proporciona uma combinação única de sabores e experiências para seu evento. Com menus personalizados e um ambiente acolhedor, estamos prontos para fazer do seu evento um verdadeiro sucesso.',
         payment_methods: 'Cartões de crédito, débito, transferência bancária e dinheiro'
       )
-      conference_event_type = buffet.event_types.create!(
+      buffet.event_types.create!(
         name: 'Conferência de Negócios',
         description: 'Uma conferência para discutir estratégias e tendências de negócios.',
         capacity_min: 50,
@@ -139,7 +139,7 @@ describe 'Visualização do Buffet:' do
         buffet_exclusive_address: false,
         client_specified_address: true
       )
-      workshop_event_type = buffet.event_types.create!(
+      buffet.event_types.create!(
         name: 'Workshop de Arte',
         description: 'Um workshop para explorar técnicas de pintura e expressão artística.',
         capacity_min: 20,
@@ -152,7 +152,7 @@ describe 'Visualização do Buffet:' do
         buffet_exclusive_address: true,
         client_specified_address: false
       )
-      party_event_type = buffet.event_types.create!(
+      buffet.event_types.create!(
         name: 'Festa de Aniversário',
         description: 'Uma festa para celebrar um aniversário especial com amigos e familiares.',
         capacity_min: 30,

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Dono de Buffet cadastra uma configuração de preço base de um evento' do
   it 'com sucesso' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -50,7 +50,7 @@ describe 'Dono de Buffet cadastra uma configuração de preço base de um evento
     expect(page).to have_link 'Voltar'
   end
   it 'uma segunda configuração com sucesso' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -104,7 +104,7 @@ describe 'Dono de Buffet cadastra uma configuração de preço base de um evento
     expect(page).to have_link 'Voltar'
   end
   it 'uma terceira configuração' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -152,7 +152,7 @@ describe 'Dono de Buffet cadastra uma configuração de preço base de um evento
     expect(page).not_to have_link 'Definir preço-base'
   end
   it 'com dados incompletos' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -198,8 +198,8 @@ describe 'Dono de Buffet cadastra uma configuração de preço base de um evento
   end
   context 'Usuário Cliente cadastra um preço-base' do
     it 'sem permissão' do
-      client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'janne1')
-      buffet_owner = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'password')
+      buffet_owner = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = buffet_owner.create_buffet!(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',

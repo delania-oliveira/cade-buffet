@@ -10,9 +10,9 @@ describe 'Usuário cria uma conta' do
       end
       select 'Dono de Buffet', from: 'Tipo de Conta'
       fill_in 'E-mail', with: 'jasne@email.com'
-      fill_in 'Senha', with: 'janne1'
-      fill_in 'Confirme sua senha', with: 'janne1'
-      within 'form' do
+      fill_in 'Senha', with: 'password'
+      fill_in 'Confirme sua senha', with: 'password'
+      within 'div.actions' do
         click_on 'Criar conta'
       end
 
@@ -39,7 +39,7 @@ describe 'Usuário cria uma conta' do
         click_on 'Criar uma conta'
       end
       select 'Dono de Buffet', from: 'Tipo de Conta'
-      within 'form' do
+      within 'div.actions' do
         click_on 'Criar conta'
       end
 
@@ -59,9 +59,9 @@ describe 'Usuário cria uma conta' do
       fill_in 'Nome', with: 'Jasne'
       fill_in 'CPF', with: '73581493004'
       fill_in 'E-mail', with: 'jasne@email.com'
-      fill_in 'Senha', with: 'janne1'
-      fill_in 'Confirme sua senha', with: 'janne1'
-      within 'form' do
+      fill_in 'Senha', with: 'password'
+      fill_in 'Confirme sua senha', with: 'password'
+      within 'div.actions' do
         click_on 'Criar conta'
       end
       
@@ -75,7 +75,7 @@ describe 'Usuário cria uma conta' do
        click_on 'Criar uma conta'
       end
       select 'Cliente', from: 'Tipo de Conta'
-      within 'form' do
+      within 'div.actions' do
         click_on 'Criar conta'
       end
       

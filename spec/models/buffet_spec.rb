@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Buffet, type: :model do
   describe '#valid?' do
     it 'false quando corporate_name for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: '',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -24,7 +24,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando brand_name for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: '',
@@ -45,7 +45,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando registration_number for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -66,7 +66,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando telephone for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -87,7 +87,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando email for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -108,7 +108,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando address for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -129,7 +129,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando district for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -150,7 +150,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando cep for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -171,7 +171,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando city for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -192,7 +192,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando state for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -213,7 +213,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando description for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -234,7 +234,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando payment_methods for vazio' do
-      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       buffet = user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -255,7 +255,7 @@ RSpec.describe Buffet, type: :model do
       expect(result).to eq false
     end
     it 'false quando registration_number já estiver sido utilizado antes' do
-      first_user = User.create!(role: 'buffet_owner', email: 'jsne@email.com', password: 'janne1')
+      first_user = User.create!(role: 'buffet_owner', email: 'jsne@email.com', password: 'password')
       first_user.create_buffet!(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',
@@ -270,7 +270,7 @@ RSpec.describe Buffet, type: :model do
         description:'O Buffet Eventos Estrela Dourada é um lugar mágico onde seus sonhos se tornam realidade. Com ambientes elegantes e serviços de alta qualidade, estamos prontos para tornar seu evento inesquecível',
         payment_methods: 'Cartões de crédito, débito, transferência bancária, Pix e dinheiro'
       )
-      second_user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+      second_user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
       second_buffet = second_user.build_buffet(
         corporate_name: 'Buffet Estrela Dourada Ltda',
         brand_name: 'Buffet Estrela Dourada Eventos',

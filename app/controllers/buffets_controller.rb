@@ -52,4 +52,12 @@ class BuffetsController < ApplicationController
       render 'edit'
     end
   end
+
+  def search
+   @query = params["query"]
+   @buffets = Buffet.left_outer_joins(:event_types).where(
+    'buffets.brand_name LIKE ? OR buffets.city LIKE ? OR event_types.name LIKE ?', 
+    "%#{@query}%", "%#{@query}%", "%#{@query}%"
+   ).order(:brand_name).distinct
+  end
 end

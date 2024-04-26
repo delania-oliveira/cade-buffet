@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Cadastro de buffet:' do
   context 'Usuário Dono de Buffet cadastra' do
     it 'a partir da tela de sign in' do
-      user = User.create!(role: 'buffet_owner', email: 'jnne@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'jnne@email.com', password: 'password')
       login_as(user)
       
       visit new_buffet_path
@@ -22,7 +22,7 @@ describe 'Cadastro de buffet:' do
       expect(page).to have_field 'Meios de Pagamento'
     end
     it 'com sucesso' do
-      user = User.create!(role: 'buffet_owner', email: 'jnne@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'jnne@email.com', password: 'password')
       login_as(user)
       
       visit new_buffet_path
@@ -58,7 +58,7 @@ describe 'Cadastro de buffet:' do
       expect(page).to have_link 'Editar Informações'
     end
     it 'com dados incompletos' do
-      user = User.create!(role: 'buffet_owner', email: 'jnne@email.com', password: 'janne1')
+      user = User.create!(role: 'buffet_owner', email: 'jnne@email.com', password: 'password')
       login_as(user)
   
       visit new_buffet_path
@@ -81,7 +81,7 @@ describe 'Cadastro de buffet:' do
   end
   context 'Usuário Cliente cadastra buffet' do
     it 'sem permissão' do
-      user = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'janne1')
+      user = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'password')
       login_as(user)
 
       visit new_buffet_path

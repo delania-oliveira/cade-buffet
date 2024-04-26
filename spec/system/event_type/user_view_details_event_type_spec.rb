@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Vê detalhes de um evento' do
   it 'do buffet do qual o usuário é dono do buffet' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -55,7 +55,7 @@ describe 'Vê detalhes de um evento' do
 
   end
   it 'do buffet do qual o usuário é dono de buffet, mas não é dono do buffet que está vendo' do
-    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -83,7 +83,7 @@ describe 'Vê detalhes de um evento' do
       buffet_exclusive_address: false,
       client_specified_address: true
     )
-    second_user = User.create!(role: 'buffet_owner', email: 'joae@email.com', password: 'janne1')
+    second_user = User.create!(role: 'buffet_owner', email: 'joae@email.com', password: 'password')
     second_buffet = second_user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
@@ -119,7 +119,7 @@ describe 'Vê detalhes de um evento' do
     expect(page).to have_link 'Voltar'
   end
   it 'como visitante' do
-    user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'janne1')
+    user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Harmonia dos Sabores Ltda',
       brand_name: 'Buffet Harmonia dos Sabores Eventos',
