@@ -110,7 +110,7 @@ describe 'Visualização do Buffet:' do
       expect(page).not_to  have_link 'Editar Informações'
       expect(page).not_to  have_link 'Criar Evento'
     end
-    it 'e vê todos os tipos de festas disponíveis' do
+    it 'e vê todos os tipos de festas disponíveis e imagem de cada' do
       user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
       buffet = user.create_buffet!(
         corporate_name: 'Buffet Harmonia dos Sabores Ltda',
@@ -126,6 +126,8 @@ describe 'Visualização do Buffet:' do
         description: 'O Buffet Eventos Harmonia dos Sabores proporciona uma combinação única de sabores e experiências para seu evento. Com menus personalizados e um ambiente acolhedor, estamos prontos para fazer do seu evento um verdadeiro sucesso.',
         payment_methods: 'Cartões de crédito, débito, transferência bancária e dinheiro'
       )
+      image_path = Rails.root.join('spec/support', 'event01.jpg')
+      image0 = Rack::Test::UploadedFile.new(image_path, 'image/jpeg')
       buffet.event_types.create!(
         name: 'Conferência de Negócios',
         description: 'Uma conferência para discutir estratégias e tendências de negócios.',
@@ -137,8 +139,10 @@ describe 'Visualização do Buffet:' do
         decoration: true,
         parking_service: true,
         buffet_exclusive_address: false,
-        client_specified_address: true
+        client_specified_address: true,
+        images: [image0]
       )
+      image1 = Rack::Test::UploadedFile.new(image_path, 'image/jpeg')
       buffet.event_types.create!(
         name: 'Workshop de Arte',
         description: 'Um workshop para explorar técnicas de pintura e expressão artística.',
@@ -150,7 +154,8 @@ describe 'Visualização do Buffet:' do
         decoration: true,
         parking_service: false,
         buffet_exclusive_address: true,
-        client_specified_address: false
+        client_specified_address: false,
+        images: [image1]
       )
       buffet.event_types.create!(
         name: 'Festa de Aniversário',
@@ -169,6 +174,7 @@ describe 'Visualização do Buffet:' do
       visit buffet_path(buffet)
     
       expect(page).to  have_content 'Conferência de Negócios'
+      expect(page).to  have_css 'img[src*="event01.jpg"]'
       expect(page).to  have_content 'Festa de Aniversário'
       expect(page).to  have_content 'Workshop de Arte'
     end

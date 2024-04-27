@@ -54,7 +54,7 @@ describe 'Vê detalhes de um evento' do
 
 
   end
-  it 'do buffet do qual o usuário é dono de buffet, mas não é dono do buffet que está vendo' do
+  it 'do buffet do qual o usuário é dono de buffet de outro buffet' do
     user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
     buffet = user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
@@ -134,6 +134,8 @@ describe 'Vê detalhes de um evento' do
       description: 'O Buffet Eventos Harmonia dos Sabores proporciona uma combinação única de sabores e experiências para seu evento. Com menus personalizados e um ambiente acolhedor, estamos prontos para fazer do seu evento um verdadeiro sucesso.',
       payment_methods: 'Cartões de crédito, débito, transferência bancária e dinheiro'
     )
+    image_path = Rails.root.join('spec/support', 'event01.jpg')
+    image = Rack::Test::UploadedFile.new(image_path, 'image/jpeg')
     party_event_type = buffet.event_types.create!(
       name: 'Festa de Aniversário',
       description: 'Uma festa para celebrar um aniversário especial com amigos e familiares.',
@@ -145,7 +147,8 @@ describe 'Vê detalhes de um evento' do
       decoration: true,
       parking_service: true,
       buffet_exclusive_address: false,
-      client_specified_address: true
+      client_specified_address: true,
+      images: [image]
     )
     party_base_price = party_event_type.base_prices.create!(
       title: 'De segunda a sexta-feira',
@@ -164,6 +167,7 @@ describe 'Vê detalhes de um evento' do
     visit event_type_path(buffet)
 
     expect(page).to have_content 'Detalhes do Evento'
+    expect(page).to  have_css 'img[src*="event01.jpg"]'
     expect(page).to have_content 'Nome do evento: Festa de Aniversário'
     expect(page).to have_content 'Descrição: Uma festa para celebrar um aniversário especial com amigos e familiares.'
     expect(page).to have_content 'Capacidade mínima de pessoas: 30'

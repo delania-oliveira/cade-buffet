@@ -9,4 +9,85 @@
   </ul>
 <% end %>
 
-<%= render 'form' %>
+<%= form_with(model: @event_type) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  
+  <div>
+    <%= f.label :capacity_min %>
+    <%= f.number_field :capacity_min %>
+  </div>
+  
+  <div>
+    <%= f.label :capacity_max %>
+    <%= f.number_field :capacity_max %>
+  </div>
+  
+  <div>
+    <%= f.label :duration %>
+    <%= f.number_field :duration %>
+  </div>
+  
+  <div>
+    <%= f.label :food_menu %>
+    <%= f.text_area :food_menu %>
+  </div>
+  
+  <div>
+    <span>Opções de serviços:</span>
+    <div>
+      <%= f.check_box :alcoholic_drinks %>
+      <%= f.label :alcoholic_drinks %>
+    </div>
+    <div>
+      <%= f.check_box :decoration %>
+      <%= f.label :decoration %>
+    </div>
+    <div>
+      <%= f.check_box :parking_service %>
+      <%= f.label :parking_service %>
+    </div>
+  </div>
+
+  <div>
+    <span>Flexibilidade de local:</span>
+    <div>
+      <%= f.check_box :buffet_exclusive_address %>
+      <%= f.label :buffet_exclusive_address %>
+    </div>
+    <div>
+      <%= f.check_box :client_specified_address %>
+      <%= f.label :client_specified_address %>
+    </div>
+  </div>
+
+  <div>
+    <span>Imagens do evento:</span>
+    <% @event_type.images.each do |image| %>
+      <div>
+        <%= image_tag image %>
+        <%= check_box_tag 'event_type[remove_image_ids][]', image.id, false, id: "remove_image_#{image.id}" %>
+        <%= label_tag "remove_image_#{image.id}", 'Remover foto' %>
+      </div>
+    <% end %>
+
+    <% if @event_type.images.count < 4 %>
+      <%= f.label :images, 'Adicionar imagens do evento' %>
+      <%= f.file_field :images, multiple: true %>
+    <% else %>
+      <span>Limite imagems foi atigindo</span>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.submit 'Salvar alterações' %>
+  </div>
+
+<% end %>

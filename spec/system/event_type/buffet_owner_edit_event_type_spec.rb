@@ -17,6 +17,8 @@ describe 'Dono de Buffet edita o tipo de evento' do
       description:'O Buffet Eventos Estrela Dourada é um lugar mágico onde seus sonhos se tornam realidade. Com ambientes elegantes e serviços de alta qualidade, estamos prontos para tornar seu evento inesquecível',
       payment_methods: 'Cartões de crédito, débito, transferência bancária, Pix e dinheiro'
     )
+    image_path = Rails.root.join('spec/support', 'event01.jpg')
+    image = Rack::Test::UploadedFile.new(image_path, 'image/jpeg')
     event_type = buffet.event_types.create!(
       name: 'Conferência de Tecnologia',
       description: 'Uma conferência para discutir as últimas tendências em tecnologia.',
@@ -28,7 +30,8 @@ describe 'Dono de Buffet edita o tipo de evento' do
       decoration: true,
       parking_service: true,
       buffet_exclusive_address: false,
-      client_specified_address: true
+      client_specified_address: true,
+      images: [image]
     )
     login_as(user)
     
@@ -37,6 +40,8 @@ describe 'Dono de Buffet edita o tipo de evento' do
     click_on 'Editar Informações'
 
     expect(page).to have_content 'Editar Evento'
+    expect(page).to have_field 'Adicionar imagens do evento'
+    expect(page).to have_unchecked_field("remove_image_#{event_type.images.first.id}")
     expect(page).to have_field 'Nome do evento'
     expect(page).to have_field 'Descrição'
     expect(page).to have_field 'Capacidade mínima de pessoas'
@@ -84,6 +89,7 @@ describe 'Dono de Buffet edita o tipo de evento' do
     
     visit edit_event_type_path(event_type)
     fill_in 'Duração em minutos', with: 260
+
     click_on 'Salvar alterações'
 
     expect(page).to have_content 'Evento atualizado com sucesso'
@@ -116,7 +122,7 @@ describe 'Dono de Buffet edita o tipo de evento' do
       decoration: true,
       parking_service: true,
       buffet_exclusive_address: false,
-      client_specified_address: true
+      client_specified_address: true,
     )
     login_as(user)
     

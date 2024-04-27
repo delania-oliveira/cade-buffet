@@ -1,6 +1,18 @@
 <div>
   <section>
     <h2>Detalhes do Evento</h2>
+    
+      <% if @event_type.images.any?  %>
+        <div>
+          <% @event_type.images.each do |image| %>
+            <%= image_tag image %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if @event_type.images.count < 4 %>
+        <span><%= link_to 'Adicionar imagens do evento', edit_event_type_path(@event_type) %></span>
+      <% end %>
 
     <div>
       <span>Nome do evento:</span>
@@ -50,7 +62,7 @@
 
     <section>
       <h3>Valores do preço-base</h3>
-      <% if true %>
+      <% if @event_type.base_prices.any? %>
         <% @event_type.base_prices.each do |config| %>
           <div>
             <span><%= config.title %></span>
@@ -73,7 +85,8 @@
         <span><%= link_to 'Definir preço-base', new_event_type_base_price_path(@event_type) %></span>
       <% end %>   
       <span><%= link_to 'Voltar', buffet_path(@event_type.buffet) %></span>
+      <% else %>
+        <span><%= link_to 'Voltar', root_path %></span>
     <% end %>
-      <span><%= link_to 'Voltar', root_path %></span>
   </section>
 </div>

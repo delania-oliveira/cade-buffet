@@ -15,7 +15,7 @@ class EventTypesController < ApplicationController
     event_type_params = params.require(:event_type).permit(
       :name, :description, :capacity_min, :capacity_max, :duration, :food_menu,
       :alcoholic_drinks, :decoration, :parking_service, :buffet_exclusive_address,
-      :client_specified_address
+      :client_specified_address, images: []
     )
     @event_type = EventType.new(event_type_params)
     @event_type.buffet = current_user.buffet
@@ -44,8 +44,15 @@ class EventTypesController < ApplicationController
     event_type_params = params.require(:event_type).permit(
       :name, :description, :capacity_min, :capacity_max, :duration, :food_menu,
       :alcoholic_drinks, :decoration, :parking_service, :buffet_exclusive_address,
-      :client_specified_address
+      :client_specified_address, images: []
     )
+    if params[:event_type][:remove_image_ids].is_a?(Array)
+      params[:event_type][:remove_image_ids].each do |id|
+        image = @event_type.images.find(id)
+        image.purge
+      end
+    end
+
     if @event_type.update(event_type_params)
       redirect_to event_type_path(@event_type.id),
       notice: 'Evento atualizado com sucesso'

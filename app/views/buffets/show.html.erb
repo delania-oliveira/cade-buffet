@@ -119,6 +119,9 @@
       <h3>Lista de Eventos</h3>
       <% @buffet.event_types.each do |event| %>
       <div>
+        <% if event.images.any? %>
+          <%= image_tag event.images.first.variant(resize: '280x185') %>
+        <% end %>
         <span><%= event.name %></span>
         <span><%= link_to 'Ver Detalhes', event_type_path(event) %></span>
       </div>

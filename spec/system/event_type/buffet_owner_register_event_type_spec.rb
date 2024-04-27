@@ -33,8 +33,8 @@ describe 'Dono de buffet cadastra um tipo de evento' do
     uncheck 'Serviço de Estacionamento/Valet'
     check 'Realizado exclusivamente no endereço do buffet'
     uncheck 'Aceita endereço indicado pelo contratante'
+    attach_file 'Adicionar imagens do evento', Rails.root.join('spec/support', 'event01.jpg')
     click_on 'Cadastrar Evento'
-    
 
     expect(current_path).to eq event_type_path(EventType.last)
     expect(page).to have_content 'Evento cadastrado com sucesso!'
@@ -51,6 +51,7 @@ describe 'Dono de buffet cadastra um tipo de evento' do
     expect(page).not_to have_content 'Serviço de Estacionamento/Valet'
     expect(page).to have_content 'Flexibilidade de local: Realizado exclusivamente no endereço do buffet'
     expect(page).not_to have_content 'Aceita endereço indicado pelo contratante'
+    expect(page).to have_css 'img[src*="event01.jpg"]'
     
     expect(page).to have_link 'Editar Informações'
     expect(page).to have_link 'Voltar'
