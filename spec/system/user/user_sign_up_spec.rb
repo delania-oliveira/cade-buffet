@@ -2,7 +2,21 @@ require 'rails_helper'
 
 describe 'Usuário cria uma conta' do
   context 'Como dono de Buffet' do
-    it 'e é redirecionado para formulario de criação de buffet' do
+    it 've o formulário' do
+      
+      visit root_path
+      within 'nav' do
+       click_on 'Criar uma conta'
+      end
+      select 'Dono de Buffet', from: 'Tipo de Conta'
+   
+      expect(page).to have_select 'Tipo de Conta'
+      expect(page).not_to have_field 'Nome'
+      expect(page).not_to have_field 'CPF'
+      expect(page).to have_field 'E-mail'
+      expect(page).to have_field 'Senha'
+    end
+    it 'e é redirecionado com sucesso para formulário de criação de buffet' do
       
       visit root_path
       within 'nav' do
@@ -15,7 +29,7 @@ describe 'Usuário cria uma conta' do
       within 'div.actions' do
         click_on 'Criar conta'
       end
-
+    
       expect(current_path).to eq new_buffet_path
       expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso'
       expect(page).to have_button 'Sair'
@@ -50,7 +64,21 @@ describe 'Usuário cria uma conta' do
   end
 
   context 'Como Cliente' do
-    it 'e é redirecionado para tela listagem de buffets' do
+    it 've o formulario' do
+      
+      visit root_path
+      within 'nav' do
+       click_on 'Criar uma conta'
+      end
+      select 'Cliente', from: 'Tipo de Conta'
+   
+      expect(page).to have_select 'Tipo de Conta'
+      expect(page).to have_field 'Nome'
+      expect(page).to have_field 'CPF'
+      expect(page).to have_field 'E-mail'
+      expect(page).to have_field 'Senha'
+    end
+    it 'e é redirecionado com sucesso para tela listagem de buffets' do
       visit root_path
       within 'nav' do
        click_on 'Criar uma conta'

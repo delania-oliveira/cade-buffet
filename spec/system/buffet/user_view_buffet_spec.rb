@@ -127,7 +127,7 @@ describe 'Visualização do Buffet:' do
         payment_methods: 'Cartões de crédito, débito, transferência bancária e dinheiro'
       )
       image_path = Rails.root.join('spec/support', 'event01.jpg')
-      image0 = Rack::Test::UploadedFile.new(image_path, 'image/jpeg')
+      image0 = fixture_file_upload(image_path, 'image/jpeg')
       buffet.event_types.create!(
         name: 'Conferência de Negócios',
         description: 'Uma conferência para discutir estratégias e tendências de negócios.',
@@ -142,7 +142,8 @@ describe 'Visualização do Buffet:' do
         client_specified_address: true,
         images: [image0]
       )
-      image1 = Rack::Test::UploadedFile.new(image_path, 'image/jpeg')
+      image_path = Rails.root.join('spec/support', 'event01.jpg')
+      image1 = fixture_file_upload(image_path, 'image/jpeg')
       buffet.event_types.create!(
         name: 'Workshop de Arte',
         description: 'Um workshop para explorar técnicas de pintura e expressão artística.',
