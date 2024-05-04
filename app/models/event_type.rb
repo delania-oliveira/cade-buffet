@@ -2,6 +2,7 @@ class EventType < ApplicationRecord
   belongs_to :buffet
   has_many :base_prices
   has_many_attached :images, dependent: :destroy
+  has_many :orders
 
   validates :name, :description, :capacity_min, :capacity_max, :duration, :food_menu, presence: true
   validate :at_least_one_address

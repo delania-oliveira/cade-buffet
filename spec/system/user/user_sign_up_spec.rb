@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário cria uma conta' do
+describe 'Usuário cria uma conta', js: true do
   context 'Como dono de Buffet' do
     it 've o formulário' do
       

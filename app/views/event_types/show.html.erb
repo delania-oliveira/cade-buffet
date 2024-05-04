@@ -87,6 +87,9 @@
       <span><%= link_to 'Voltar', buffet_path(@event_type.buffet) %></span>
       <% else %>
         <span><%= link_to 'Voltar', root_path %></span>
+        <% if current_user&.client? %>
+          <span><%= link_to 'Contratar Evento', new_event_type_order_path(@event_type) %></span>
+        <% end %>
     <% end %>
   </section>
 </div>

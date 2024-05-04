@@ -7,6 +7,9 @@ pt-BR:
       user: 'Usuário'
       event_type: 'Tipo de Evento'
       base_price: 'Preço Base'
+      order:
+        one: 'Pedido'
+        other: 'Pedidos'
     attributes:
       user:
         name: 'Nome'
@@ -44,3 +47,13 @@ pt-BR:
         minimum_value: 'Valor mínimo'
         additional_value_per_person: 'Valor adicional por pessoa'
         extra_hour_value: 'Valor por hora extra'
+      order:
+        code: 'Código do pedido'
+        date: 'Data do evento'
+        guests: 'Quantidade estimada de convidados'
+        details: 'Detalhes do evento'
+        location: 'Endereço do evento'
+        statuses:
+          pending: 'Aguardando avaliação do buffet'
+          confirmed: 'Pedido confirmado'
+          canceled: 'Pedido cancelado'

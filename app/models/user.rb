@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_one :buffet
   enum role: {client:0, buffet_owner:1}
+  has_many :orders
 
   validates :role, presence: true
   validates :name, :individual_registration, presence: true, if: :client?

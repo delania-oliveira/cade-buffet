@@ -1,0 +1,44 @@
+<h1>Novo Pedido</h1>
+
+<% if @order.errors.any? %>
+  <p>Verifique os erros a seguir:</p>
+  <ul>
+    <% @order.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<div>
+  <h2><%= @event_type.buffet.brand_name %></h2>
+  <h3><%= @event_type.name %></h3>
+</div>
+
+<%= form_with(model: [@event_type, @order]) do |f| %>
+  <div>
+    <%= f.label :date %>
+    <%= f.date_field :date %>
+  </div>
+
+  <div>
+    <%= f.label :guests %>
+    <%= f.number_field :guests %>
+  </div>
+  
+  <div>
+    <%= f.label :details %>
+    <%= f.text_area :details %>
+  </div>
+  
+  <% if @event_type.client_specified_address? %>
+    <div>
+      <%= f.label :location %>
+      <%= f.text_field :location %>
+    </div>
+  <% end %>
+  
+  <div>
+    <%= f.submit 'Fazer pedido' %>
+  </div>
+
+<% end %>

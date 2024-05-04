@@ -1,0 +1,42 @@
+<h1>Pedido: <%= @order.code %> </h1>
+<span>Status: Aguardando avaliação do buffet</span>
+
+<div>
+  <section>
+    <span>Nome:</span>
+    <span><%= @order.user.name %></span>
+    <span>Data do pedido:</span>
+    <span><%= @order.created_at.strftime("%d/%m/%Y") %></span>
+  </section>
+  <section>
+    <h2>Detalhes:</h2>
+    <div>
+      <span>Nome do buffet:</span>
+      <span><%= @order.event_type.buffet.brand_name %></span>
+    </div>
+    <div>
+      <span>Tipo de evento:</span>
+      <span><%= @order.event_type.name %></span>
+    </div>
+    
+    <div>
+      <span>Data do evento:</span>
+      <span><%= @order.date.strftime("%d/%m/%Y") %></span>
+    </div>
+    <div>
+      <span>Quantidade estimada de convidados:</span>
+      <span><%= @order.guests %></span>
+    </div>
+    <div>
+      <span>Detalhes do evento:</span>
+      <span><%= @order.details %></span>
+    </div>
+    <div>
+      <span>Endereço do evento:</span>
+      <span><%= @order.location %></span>
+    </div>
+  </section>
+  <section> 
+      <span><%= link_to 'Voltar', orders_path %></span>
+  </section>
+</div>

@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   end
   resources :event_types, only: [:show, :new, :create, :edit, :update] do
     resources :base_prices, only: [:new, :create]
+    resources :orders, only: [:new, :create]
   end
   resources :base_prices, only: [:show, :edit, :update]
+  resources :orders, only: [:index, :show, :edit, :update]
 end

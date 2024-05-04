@@ -118,13 +118,13 @@
     <section>
       <h3>Lista de Eventos</h3>
       <% @buffet.event_types.each do |event| %>
-      <div>
-        <% if event.images.any? %>
-          <%= image_tag event.images.first.variant(resize_to_limit: [280, 185]) %>
-        <% end %>
-        <span><%= event.name %></span>
-        <span><%= link_to 'Ver Detalhes', event_type_path(event) %></span>
-      </div>
+        <div>
+          <% if event.images.any? %>
+            <%= image_tag event.images.first.variant(resize_to_limit: [280, 185]) %>
+          <% end %>
+          <span><%= event.name %></span>
+          <span><%= link_to 'Ver Detalhes', event_type_path(event) %></span>
+        </div>
       <% end %>
     </section>
   </div>
