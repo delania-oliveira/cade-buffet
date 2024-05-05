@@ -30,8 +30,8 @@ describe 'Dono de Buffet edita o preço-base do evento' do
       buffet_exclusive_address: false,
       client_specified_address: true
     )
-    base_price = event_type.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+    event_type.base_prices.create!(
+      title: 'De segunda à sexta',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
@@ -79,7 +79,7 @@ describe 'Dono de Buffet edita o preço-base do evento' do
       client_specified_address: true
     )
     base_price = event_type.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à sexta',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
@@ -87,11 +87,11 @@ describe 'Dono de Buffet edita o preço-base do evento' do
     login_as(user)
     
     visit edit_base_price_path(base_price)
-    fill_in 'Título', with: 'Feriados'
+    select 'Finais de semana e feriados', from: 'Título'
     click_on 'Salvar alterações'
 
     expect(page).to have_content 'Preço-base atualizado com sucesso'
-    expect(page).to have_content 'Título: Feriados'
+    expect(page).to have_content 'Título: Finais de semana e feriados'
   end 
   it 'e mantem os campos obrigátorios' do
     user = User.create!(role: 'buffet_owner', email: 'joane@email.com', password: 'password')
@@ -123,7 +123,7 @@ describe 'Dono de Buffet edita o preço-base do evento' do
       client_specified_address: true
     )
     base_price = event_type.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à domingo, incluindo feriados',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
@@ -131,7 +131,7 @@ describe 'Dono de Buffet edita o preço-base do evento' do
     login_as(user)
     
     visit edit_base_price_path(base_price)
-    fill_in 'Título', with: ''
+    select 'Selecione uma configuração', from: 'Título'
     click_on 'Salvar alterações'
 
     expect(page).to have_content 'Não foi possível atualizar o preço-base'
@@ -166,13 +166,13 @@ describe 'Dono de Buffet edita o preço-base do evento' do
       client_specified_address: true
     )
     base_price = event_type.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à sexta',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
     )
     second_user = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
-    second_buffet = second_user.create_buffet!(
+    second_user.create_buffet!(
       corporate_name: 'Buffet Estrela Ltda',
       brand_name: 'Buffet Estrela Eventos',
       registration_number: '1234000190',
@@ -225,7 +225,7 @@ describe 'Dono de Buffet edita o preço-base do evento' do
         client_specified_address: true
       )
       base_price = event_type.base_prices.create!(
-        title: 'De segunda a sexta-feira',
+        title: 'De segunda à sexta',
         minimum_value: 10000,
         additional_value_per_person: 150,
         extra_hour_value: 1000,

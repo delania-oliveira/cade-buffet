@@ -35,14 +35,14 @@ describe 'Dono de Buffet cadastra uma configuração de preço base de um evento
     visit buffet_path(buffet)
     click_on 'Ver Detalhes', :match => :first
     click_on 'Definir preço-base'
-    fill_in 'Título', with: 'De segunda a sexta-feira'
+    select 'De segunda à sexta', from: 'Título'
     fill_in 'Valor mínimo', with: '10000'
     fill_in 'Valor adicional por pessoa', with: '150'
     fill_in 'Valor por hora extra', with: '1000'
     click_on 'Cadastrar preço-base'
 
     expect(current_path).to eq base_price_path(BasePrice.last)
-    expect(page).to have_content 'Título: De segunda a sexta-feira'
+    expect(page).to have_content 'Título: De segunda à sexta'
     expect(page).to have_content 'Valor mínimo: R$ 10.000,00'
     expect(page).to have_content 'Valor adicional por pessoa: R$ 150,00'
     expect(page).to have_content 'Valor por hora extra: R$ 1.000,00'
@@ -79,7 +79,7 @@ describe 'Dono de Buffet cadastra uma configuração de preço base de um evento
       client_specified_address: true
     )
     event_type.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à sexta',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
@@ -89,14 +89,14 @@ describe 'Dono de Buffet cadastra uma configuração de preço base de um evento
     visit buffet_path(buffet)
     click_on 'Ver Detalhes', :match => :first
     click_on 'Definir preço-base'
-    fill_in 'Título', with: 'Finais de semana'
+    select 'Finais de semana e feriados', from: 'Título'
     fill_in 'Valor mínimo', with: '30000'
     fill_in 'Valor adicional por pessoa', with: '300'
     fill_in 'Valor por hora extra', with: '3000'
     click_on 'Cadastrar preço-base'
 
     expect(current_path).to eq base_price_path(BasePrice.last)
-    expect(page).to have_content 'Título: Finais de semana'
+    expect(page).to have_content 'Título: Finais de semana e feriados'
     expect(page).to have_content 'Valor mínimo: R$ 30.000,00'
     expect(page).to have_content 'Valor adicional por pessoa: R$ 300,00'
     expect(page).to have_content 'Valor por hora extra: R$ 3.000,00'
@@ -133,13 +133,13 @@ describe 'Dono de Buffet cadastra uma configuração de preço base de um evento
       client_specified_address: true
     )
     event_type.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à sexta',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
     )
     event_type.base_prices.create!(
-      title: 'Finais de semana',
+      title: 'Finais de semana e feriados',
       minimum_value: 30000,
       additional_value_per_person: 300,
       extra_hour_value: 3000,
@@ -167,7 +167,7 @@ describe 'Dono de Buffet cadastra uma configuração de preço base de um evento
       description:'O Buffet Eventos Estrela Dourada é um lugar mágico onde seus sonhos se tornam realidade. Com ambientes elegantes e serviços de alta qualidade, estamos prontos para tornar seu evento inesquecível',
       payment_methods: 'Cartões de crédito, débito, transferência bancária, Pix e dinheiro'
     )
-    event_type = buffet.event_types.create!(
+    buffet.event_types.create!(
       name: 'Conferência de Tecnologia',
       description: 'Uma conferência para discutir as últimas tendências em tecnologia.',
       capacity_min: 100,

@@ -31,7 +31,7 @@ describe 'Usuário vê detalhes do preço-base de um evento' do
       client_specified_address: true
     )
     base_price = event_type.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à sexta',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
@@ -41,7 +41,7 @@ describe 'Usuário vê detalhes do preço-base de um evento' do
     visit base_price_path(base_price)
 
     expect(page).to have_content 'Preço-base'
-    expect(page).to have_content 'Título: De segunda a sexta-feira'
+    expect(page).to have_content 'Título: De segunda à sexta'
     expect(page).to have_content 'Valor mínimo: R$ 10.000,00'
     expect(page).to have_content 'Valor adicional por pessoa: R$ 150,00'
     expect(page).to have_content 'Valor por hora extra: R$ 1.000,00'
@@ -78,13 +78,13 @@ describe 'Usuário vê detalhes do preço-base de um evento' do
       client_specified_address: true
     )
     base_price = event_type.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à sexta',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
     )
     second_user = User.create!(role: 'buffet_owner', email: 'joae@email.com', password: 'password')
-    second_buffet = second_user.create_buffet!(
+    second_user.create_buffet!(
       corporate_name: 'Buffet Estrela Dourada Ltda',
       brand_name: 'Buffet Estrela Dourada Eventos',
       registration_number: '12378000190',
@@ -103,7 +103,7 @@ describe 'Usuário vê detalhes do preço-base de um evento' do
     visit base_price_path(base_price)
 
     expect(page).to have_content 'Preço-base'
-    expect(page).to have_content 'Título: De segunda a sexta-feira'
+    expect(page).to have_content 'Título: De segunda à sexta'
     expect(page).to have_content 'Valor mínimo: R$ 10.000,00'
     expect(page).to have_content 'Valor adicional por pessoa: R$ 150,00'
     expect(page).to have_content 'Valor por hora extra: R$ 1.000,00'
