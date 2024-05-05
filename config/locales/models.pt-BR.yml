@@ -57,3 +57,4 @@ pt-BR:
           pending: 'Aguardando avaliação do buffet'
           confirmed: 'Pedido confirmado'
           canceled: 'Pedido cancelado'
+          waiting: 'Aguardando confirmação'

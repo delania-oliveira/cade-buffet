@@ -1,5 +1,9 @@
+<% if current_user.buffet_owner? && @same_date_orders.count > 1 %>
+  <span>Atenção: Existe outro pedido para o mesmo dia!</span>
+<% end %>
+
 <h1>Pedido: <%= @order.code %> </h1>
-<span>Status: Aguardando avaliação do buffet</span>
+<span>Status: <%= I18n.t("activerecord.attributes.order.statuses.#{@order.status}") %></span>
 
 <div>
   <section>
@@ -36,7 +40,11 @@
       <span><%= @order.location %></span>
     </div>
   </section>
-  <section> 
+  <section>
+      <% if current_user.buffet_owner? %>
+         <span>Aprovar pedido</span>
+         <span>Cancelar pedido</span>
+      <% end %> 
       <span><%= link_to 'Voltar', orders_path %></span>
   </section>
 </div>

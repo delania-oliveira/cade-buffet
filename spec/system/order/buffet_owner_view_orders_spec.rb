@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'cliente' do
+describe 'Dono de Buffet' do
   it 'e vê listagem de pedidos' do
     client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'password')
     buffet_owner = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
@@ -84,12 +84,14 @@ describe 'cliente' do
       status: 'waiting'
     )
     
-    login_as(client)
-    visit orders_path
+    login_as(buffet_owner)
+    visit buffet_path(buffet)
+    click_on 'Pedidos'
  
-    expect(page).to have_content 'Meus pedidos'
+    expect(page).to have_content 'Pedidos'
+    expect(page).to have_content 'Pedidos aguardando avaliação'
     expect(page).to have_content 'Código'
-    expect(page).to have_link "ORDERCD0"
+    expect(page).to have_link 'ORDERCD0'
     expect(page).to have_link 'ORDERCD1'
     expect(page).to have_link 'ORDERCD2'
     expect(page).to have_link 'ORDERCD3'
@@ -148,18 +150,11 @@ describe 'cliente' do
       additional_value_per_person: 250,
       extra_hour_value: 3000,
     )
-    allow(SecureRandom).to receive(:alphanumeric).and_return('ABCD1234')
+    
+    codes = Array.new(4) { |i| "ORDERCD#{i}" }
+    allow(SecureRandom).to receive(:alphanumeric).and_return(*codes)
+    
     order_a = client.orders.create!(
-      user: client,
-      event_type: event, 
-      date: '2024-12-25', 
-      guests: 150, 
-      details: 'Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.',
-      location: 'Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo',
-      status: 'pending'
-    )
-    allow(SecureRandom).to receive(:alphanumeric).and_call_original
-    client.orders.create!(
       user: client,
       event_type: event, 
       date: '2024-07-14', 
@@ -168,12 +163,40 @@ describe 'cliente' do
       location: 'Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo',
       status: 'pending'
     )
+    client.orders.create!(
+      user: client,
+      event_type: event, 
+      date: '2024-07-14', 
+      guests: 150, 
+      details: 'Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.',
+      location: 'Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo',
+      status: 'confirmed'
+    )
+    client.orders.create!(
+      user: client,
+      event_type: event, 
+      date: '2024-11-15', 
+      guests: 150, 
+      details: 'Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.',
+      location: 'Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo',
+      status: 'canceled'
+    )
+    client.orders.create!(
+      user: client,
+      event_type: event, 
+      date: '2024-10-16', 
+      guests: 150, 
+      details: 'Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.',
+      location: 'Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo',
+      status: 'waiting'
+    )
 
-    login_as(client)
+    login_as(buffet_owner)
     visit orders_path
-    click_on 'ABCD1234'
+    click_on 'ORDERCD0'
 
-    expect(page).to have_content 'Pedido: ABCD1234'
+    expect(page).to have_content 'Atenção: Existe outro pedido para o mesmo dia!'
+    expect(page).to have_content 'Pedido: ORDERCD0'
     expect(page).to have_content 'Status: Aguardando avaliação do buffet'
     expect(page).to have_content "Nome: #{client.name}"
     expect(page).to have_content "Data do pedido: #{order_a.created_at.strftime("%d/%m/%Y")}"
@@ -184,5 +207,7 @@ describe 'cliente' do
     expect(page).to have_content 'Quantidade estimada de convidados: 150'
     expect(page).to have_content 'Detalhes do evento: Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.'
     expect(page).to have_content 'Endereço do evento: Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo'
+    expect(page).to have_content 'Aprovar pedido'  
+    expect(page).to have_content 'Cancelar pedido'  
   end
 end

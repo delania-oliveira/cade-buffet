@@ -1,21 +1,74 @@
-<h1>Meus pedidos</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Código</th>
-      <th>Tipo de evento</th>
-      <th>Data do evento</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% current_user.orders.each do |order| %>
+<% if current_user.buffet_owner? %>
+  <h1>Pedidos</h1>
+  <h2>Pedidos aguardando avaliação</h2>
+  <% if @pending_orders.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Tipo de evento</th>
+          <th>Data do evento</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pending_orders.each do |order| %>
+          <tr>
+            <td><%= link_to order.code, order_path(order) %></td>
+            <td><%= order.event_type.name %></td>
+            <td><%= order.date.strftime("%d/%m/%Y") %></td>
+            <td><%= I18n.t("activerecord.attributes.order.statuses.#{Order.statuses.key(order.status)}") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %> %>
+    <span>Nenhum pedido aguardando avaliação</span>
+  <% end %>
+  <% if @confirmed_orders.any? || @canceled_orders.any? || @waiting_orders.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Tipo de evento</th>
+          <th>Data do evento</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Order.where(event_type: current_user.buffet.event_types, status: ['confirmed', 'canceled', 'waiting']).each do |order| %>
+          <tr>
+            <td><%= link_to order.code, order_path(order) %></td>
+            <td><%= order.event_type.name %></td>
+            <td><%= order.date.strftime("%d/%m/%Y") %></td>
+            <td><%= I18n.t("activerecord.attributes.order.statuses.#{Order.statuses.key(order.status)}") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+<% else %>
+  <h1>Meus pedidos</h1>
+  <table>
+    <thead>
       <tr>
-        <td><%= link_to order.code, order_path(order) %></td>
-        <td><%= order.event_type.name %></td>
-        <td><%= order.date.strftime("%d/%m/%Y") %></td>
-        <td><%= I18n.t("activerecord.attributes.order.statuses.#{Order.statuses.key(order.status)}") %></td>
+        <th>Código</th>
+        <th>Tipo de evento</th>
+        <th>Data do evento</th>
+        <th>Status</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% current_user.orders.each do |order| %>
+        <tr>
+          <td><%= link_to order.code, order_path(order) %></td>
+          <td><%= order.event_type.name %></td>
+          <td><%= order.date.strftime("%d/%m/%Y") %></td>
+          <td><%= I18n.t("activerecord.attributes.order.statuses.#{Order.statuses.key(order.status)}") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+

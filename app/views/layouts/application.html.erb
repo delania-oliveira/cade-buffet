@@ -22,6 +22,11 @@
       <% end %>
       <nav>
         <% if user_signed_in? %>
+          <% if current_user.buffet_owner? %>
+            <span><%= link_to 'Pedidos', orders_path %></span>
+          <% else %>
+            <span><%= link_to 'Meus Pedidos', orders_path %></span>
+          <% end %>
           <span><%= button_to 'Sair', destroy_user_session_path, method: :delete %></span>
         <% else %>
           <span><%= link_to 'Criar uma conta', new_user_registration_path %></span>

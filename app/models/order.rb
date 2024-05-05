@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :event_type
-  enum status: { pending: 0, confirmed: 1, canceled: 2 }
+  enum status: { pending: 0, confirmed: 1, canceled: 2, waiting: 3 }
 
   validates :date, :guests, :details, :code, presence: true
   validates :code, uniqueness: true
