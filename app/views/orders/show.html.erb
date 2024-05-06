@@ -40,11 +40,42 @@
       <span><%= @order.location %></span>
     </div>
   </section>
+    
   <section>
-      <% if current_user.buffet_owner? %>
-         <span>Aprovar pedido</span>
-         <span>Cancelar pedido</span>
-      <% end %> 
-      <span><%= link_to 'Voltar', orders_path %></span>
+    <% if current_user.buffet_owner? && @order.pending? %>
+      <%= render 'default_price', order: @order %>
+      <%= render 'form' %>
+      <div>
+        <span>Valor total: <%= number_to_currency(@order.total_amount) %></span> 
+      </div>
+    <span><%= button_to 'Cancelar pedido', canceled_order_path(@order), method: :post %></span>
+    <% elsif @order.waiting? || @order.confirmed? %>
+      <%= render 'default_price', order: @order %>
+      <div>
+        <span>Forma de pagamento:</span>
+        <span><%= @order.payment_method %></span>
+      </div>
+      <div>
+        <span>Desconto:</span>
+        <span><%= @order.discount %>%</span>
+      </div>
+      <div>
+        <span>Taxa extra:</span>
+        <span><%= @order.extra_fee %></span>
+      </div>
+      <div>
+        <span>Descrição:</span>
+        <span><%= @order.description %></span>
+      </div>
+      <div>
+        <span>Valor total: </span>
+        <span><%= number_to_currency(@order.total_amount) %></span>
+      </div>
+      <div>
+        <span>Válido até:</span>
+        <span><%= @order.expiry_date.strftime("%d/%m/%Y") %></span>
+      </div>
+    <% end %>
+    <span><%= link_to 'Voltar', orders_path %></span>
   </section>
 </div>

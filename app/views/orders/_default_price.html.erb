@@ -1,0 +1,15 @@
+<div>
+  <% if order.event_type.base_prices.where(title: 'Finais de semana e feriados').any? && Order.weekend?(order.date) %>
+    <span>Valor padrão: 
+      <%= number_to_currency(order.event_type.base_prices.find_by(title: 'Finais de semana e feriados').minimum_value) %>
+    </span>
+  <% elsif order.event_type.base_prices.where(title: 'De segunda à sexta').any? && !Order.weekend?(order.date)%>
+    <span>Valor padrão: 
+      <%= number_to_currency(order.event_type.base_prices.find_by(title: 'De segunda à sexta').minimum_value) %>
+    </span>
+  <% elsif order.event_type.base_prices.where(title: 'De segunda à domingo, incluindo feriados').any? %>
+    <span>Valor padrão:
+      <%= number_to_currency(order.event_type.base_prices.find_by(title: 'De segunda à domingo, incluindo feriados').minimum_value) %>
+    </span>
+  <% end %>
+</div>

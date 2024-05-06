@@ -32,13 +32,13 @@ describe 'Usuário cliente' do
       client_specified_address: true
     )
     event.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à sexta',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
     )
     event.base_prices.create!(
-      title: 'Finais de semana e feriado',
+      title: 'Finais de semana e feriados',
       minimum_value: 35000,
       additional_value_per_person: 250,
       extra_hour_value: 3000,
@@ -80,13 +80,13 @@ describe 'Usuário cliente' do
       client_specified_address: true
     )
     event.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à sexta',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
     )
     event.base_prices.create!(
-      title: 'Finais de semana e feriado',
+      title: 'Finais de semana e feriados',
       minimum_value: 35000,
       additional_value_per_person: 250,
       extra_hour_value: 3000,
@@ -135,13 +135,13 @@ describe 'Usuário cliente' do
       client_specified_address: true
     )
     event.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à sexta',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
     )
     event.base_prices.create!(
-      title: 'Finais de semana e feriado',
+      title: 'Finais de semana e feriados',
       minimum_value: 35000,
       additional_value_per_person: 250,
       extra_hour_value: 3000,
@@ -201,13 +201,13 @@ describe 'Usuário cliente' do
       client_specified_address: true
     )
     event.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à sexta',
       minimum_value: 10000,
       additional_value_per_person: 150,
       extra_hour_value: 1000,
     )
     event.base_prices.create!(
-      title: 'Finais de semana e feriado',
+      title: 'Finais de semana e feriados',
       minimum_value: 35000,
       additional_value_per_person: 250,
       extra_hour_value: 3000,

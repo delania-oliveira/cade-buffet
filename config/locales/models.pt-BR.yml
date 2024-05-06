@@ -53,6 +53,12 @@ pt-BR:
         guests: 'Quantidade estimada de convidados'
         details: 'Detalhes do evento'
         location: 'Endereço do evento'
+        payment_method: 'Forma de pagamento'
+        discount: 'Desconto(%)'
+        extra_fee: 'Taxa extra'
+        description: 'Descrição'
+        total_amount: 'Valor total'
+        expiry_date: 'Válido até'
         statuses:
           pending: 'Aguardando avaliação do buffet'
           confirmed: 'Pedido confirmado'

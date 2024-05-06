@@ -10,5 +10,10 @@ Rails.application.routes.draw do
     resources :orders, only: [:new, :create]
   end
   resources :base_prices, only: [:show, :edit, :update]
-  resources :orders, only: [:index, :show, :edit, :update]
+  resources :orders, only: [:index, :show, :update] do
+    member do
+      post :canceled
+    end
+  end
+
 end

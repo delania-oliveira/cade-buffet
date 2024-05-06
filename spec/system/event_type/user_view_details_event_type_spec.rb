@@ -151,7 +151,7 @@ describe 'Vê detalhes de um evento' do
       images: [image]
     )
     party_base_price = party_event_type.base_prices.create!(
-      title: 'De segunda a sexta-feira',
+      title: 'De segunda à sexta',
       minimum_value: 15000,
       additional_value_per_person: 200,
       extra_hour_value: 1500,
@@ -181,7 +181,7 @@ describe 'Vê detalhes de um evento' do
     expect(page).to have_content 'Flexibilidade de local:' 
     expect(page).to have_content 'Aceita endereço indicado pelo contratante'
     expect(page).to have_content 'Valores do preço-base'
-    expect(page).to have_content 'De segunda a sexta-feira'
+    expect(page).to have_content 'De segunda à sexta'
     expect(page).to have_content 'Valor mínimo: R$ 15.000,00'
     expect(page).to have_content 'Valor adicional por pessoa: R$ 200,00'
     expect(page).to have_content 'Valor por hora extra: R$ 1.500,00'

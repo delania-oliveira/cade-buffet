@@ -1,0 +1,25 @@
+<%= form_with(model: @order) do |f| %>
+  <div>
+    <%= f.label :payment_method %>
+    <%= f.text_field :payment_method %>
+  </div>
+  <div>
+    <%= f.label :discount %>
+    <%= f.number_field :discount %>
+  </div>
+  <div>
+    <%= f.label :extra_fee %>
+    <%= f.number_field :extra_fee %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+    <%= f.label :expiry_date %>
+    <%= f.date_field :expiry_date %>
+  </div>
+  <div>
+    <%= f.submit 'Aprovar pedido' %>
+  </div>
+<% end %>

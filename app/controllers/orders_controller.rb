@@ -44,4 +44,28 @@ class OrdersController < ApplicationController
       render 'new'
     end
   end
+
+  def update
+    @order = Order.find(params[:id])
+    order_params = params.require(:order).permit(
+      :payment_method, :discount, :extra_fee, :description, :expiry_date, :total_amount
+      )
+      if @order.update(order_params)
+      discount = order_params[:discount].to_d
+      extra_fee = order_params[:extra_fee].to_d
+      @order.waiting!
+      @order.update(total_amount: @order.calculate_final_price(discount, extra_fee))
+      redirect_to @order,
+      notice: 'Pedido aprovado com sucesso'
+    else 
+      flash.now[:notice] = 'Não foi possível atualizar o pedido'
+      render 'show'
+    end
+  end
+
+  def canceled
+    @order = Order.find(params[:id])
+    @order.update(status: 'canceled')
+    redirect_to @order, notice: 'Pedido cancelado'
+  end
 end
