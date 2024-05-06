@@ -66,6 +66,7 @@ class OrdersController < ApplicationController
   def canceled
     @order = Order.find(params[:id])
     @order.update(status: 'canceled')
-    redirect_to @order, notice: 'Pedido cancelado'
+    redirect_to @order, 
+    notice: 'Pedido cancelado com sucesso'
   end
 end
