@@ -1,6 +1,9 @@
 <% if current_user.buffet_owner? && @same_date_orders.count > 1 %>
   <span>Atenção: Existe outro pedido para o mesmo dia!</span>
 <% end %>
+<% if current_user.client? && @order.expired? %>
+  <span>Atenção: A data para confirmação do pedido expirou!</span>
+<% end %>
 
 <h1>Pedido: <%= @order.code %> </h1>
 <span>Status: <%= I18n.t("activerecord.attributes.order.statuses.#{@order.status}") %></span>
@@ -44,11 +47,11 @@
   <section>
     <% if current_user.buffet_owner? && @order.pending? %>
       <%= render 'default_price', order: @order %>
-      <%= render 'form' %>
       <div>
         <span>Valor total: <%= number_to_currency(@order.total_amount) %></span> 
       </div>
-    <span><%= button_to 'Cancelar pedido', canceled_order_path(@order), method: :post %></span>
+      <%= render 'form' %>
+      <span><%= button_to 'Cancelar pedido', canceled_order_path(@order), method: :post %></span>
     <% elsif @order.waiting? || @order.confirmed? %>
       <%= render 'default_price', order: @order %>
       <div>
@@ -75,6 +78,10 @@
         <span>Válido até:</span>
         <span><%= @order.expiry_date.strftime("%d/%m/%Y") %></span>
       </div>
+    <% end %>
+    <% if current_user.client? && @order.waiting? %>
+      <span><%= button_to 'Confirmar pedido', confirmed_order_path(@order), method: :post %></span>
+      <span><%= button_to 'Cancelar pedido', canceled_order_path(@order), method: :post %></span>
     <% end %>
     <span><%= link_to 'Voltar', orders_path %></span>
   </section>

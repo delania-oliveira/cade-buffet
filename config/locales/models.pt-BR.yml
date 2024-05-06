@@ -64,3 +64,4 @@ pt-BR:
           confirmed: 'Pedido confirmado'
           canceled: 'Pedido cancelado'
           waiting: 'Aguardando confirmação'
+          expired: 'Pedido expirado'

@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :event_type
-  enum status: { pending: 0, confirmed: 1, canceled: 2, waiting: 3 }
+  enum status: { pending: 0, confirmed: 1, canceled: 2, waiting: 3, expired: 4 }
 
   validates :date, :guests, :details, :code, presence: true
   validates :code, uniqueness: true
@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   
   before_validation :generated_code
   before_create :set_total_amount
+  after_update :check_expiry_date
 
 
   def self.weekend?(date)
@@ -43,6 +44,13 @@ class Order < ApplicationRecord
       else
         base_price.minimum_value
       end
+    end
+  end
+
+  def check_expiry_date
+    if !self.expiry_date.nil? && self.expiry_date < Date.today
+      self.status = 'expired'
+      self.save
     end
   end
 

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :base_prices, only: [:show, :edit, :update]
   resources :orders, only: [:index, :show, :update] do
     member do
-      post :canceled
+      post :canceled, :confirmed
     end
   end
 

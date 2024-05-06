@@ -185,4 +185,270 @@ describe 'cliente' do
     expect(page).to have_content 'Detalhes do evento: Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.'
     expect(page).to have_content 'Endereço do evento: Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo'
   end
+  it 'e vê detalhes de pedido aguardando confirmação' do
+    client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'password')
+    buffet_owner = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
+    buffet = buffet_owner.create_buffet!(
+      corporate_name: 'Buffet Harmonia dos Sabores Ltda',
+      brand_name: 'Buffet Harmonia dos Sabores Eventos',
+      registration_number: '13579246000190',
+      telephone: '1133334444',
+      email: 'contato@harmoniadosabores.com.br',
+      address: 'Rua das Delícias, 789',
+      district: 'Vila Gastronômica',
+      cep: '98765432',
+      city: 'Cidade dos Sabores',
+      state: 'Minas Gerais',
+      description: 'O Buffet Eventos Harmonia dos Sabores proporciona uma combinação única de sabores e experiências para seu evento. Com menus personalizados e um ambiente acolhedor, estamos prontos para fazer do seu evento um verdadeiro sucesso.',
+      payment_methods: 'Pix, transferência bancária e dinheiro'
+    )
+    event = buffet.event_types.create!(
+      name: 'Evento de confraternização',
+      description: 'Um evento especial para relaxar, se divertir e estreitar laços com colegas',
+      capacity_min: 150,
+      capacity_max: 500,
+      duration: 240,
+      food_menu: 'Jantar com frutos do mar e vinhos',
+      alcoholic_drinks: true,
+      decoration: true,
+      parking_service: false,
+      buffet_exclusive_address: false,
+      client_specified_address: true
+    )
+    event.base_prices.create!(
+      title: 'De segunda à sexta',
+      minimum_value: 10000,
+      additional_value_per_person: 150,
+      extra_hour_value: 1000,
+    )
+    event.base_prices.create!(
+      title: 'Finais de semana e feriados',
+      minimum_value: 25000,
+      additional_value_per_person: 250,
+      extra_hour_value: 3000,
+    )
+     
+    order = client.orders.create!(
+      user: client,
+      event_type: event, 
+      date: '2024-07-14', 
+      guests: 100, 
+      details: 'Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.',
+      location: 'Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo',
+      status: 'waiting',
+      payment_method: 'Pix',
+      discount: 5,
+      extra_fee: 0,
+      description: 'A quantidade de convidados não atigiu o limite mínimo',
+      expiry_date: '2024-06-20'
+    )
+
+    login_as(client)
+    order.update(total_amount: order.calculate_final_price(order.discount, order.extra_fee))
+    visit order_path(order)
+
+    expect(page).to have_content 'Status: Aguardando confirmação'
+    expect(page).to have_content 'Valor padrão: R$ 25.000,00'
+    expect(page).to have_content 'Forma de pagamento: Pix'
+    expect(page).to have_content 'Desconto: 5%'
+    expect(page).to have_content 'Descrição: A quantidade de convidados não atigiu o limite mínimo'
+    expect(page).to have_content 'Valor total: R$ 23.750,00'
+    expect(page).to have_content 'Válido até: 20/06/2024'
+    expect(page).to have_button 'Confirmar pedido'
+    expect(page).to have_button 'Cancelar pedido'
+    expect(page).to have_link 'Voltar'
+  end
+  it 'e confirma pedido' do
+    client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'password')
+    buffet_owner = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
+    buffet = buffet_owner.create_buffet!(
+      corporate_name: 'Buffet Harmonia dos Sabores Ltda',
+      brand_name: 'Buffet Harmonia dos Sabores Eventos',
+      registration_number: '13579246000190',
+      telephone: '1133334444',
+      email: 'contato@harmoniadosabores.com.br',
+      address: 'Rua das Delícias, 789',
+      district: 'Vila Gastronômica',
+      cep: '98765432',
+      city: 'Cidade dos Sabores',
+      state: 'Minas Gerais',
+      description: 'O Buffet Eventos Harmonia dos Sabores proporciona uma combinação única de sabores e experiências para seu evento. Com menus personalizados e um ambiente acolhedor, estamos prontos para fazer do seu evento um verdadeiro sucesso.',
+      payment_methods: 'Pix, transferência bancária e dinheiro'
+    )
+    event = buffet.event_types.create!(
+      name: 'Evento de confraternização',
+      description: 'Um evento especial para relaxar, se divertir e estreitar laços com colegas',
+      capacity_min: 150,
+      capacity_max: 500,
+      duration: 240,
+      food_menu: 'Jantar com frutos do mar e vinhos',
+      alcoholic_drinks: true,
+      decoration: true,
+      parking_service: false,
+      buffet_exclusive_address: false,
+      client_specified_address: true
+    )
+    event.base_prices.create!(
+      title: 'De segunda à sexta',
+      minimum_value: 10000,
+      additional_value_per_person: 150,
+      extra_hour_value: 1000,
+    )
+    event.base_prices.create!(
+      title: 'Finais de semana e feriados',
+      minimum_value: 25000,
+      additional_value_per_person: 250,
+      extra_hour_value: 3000,
+    )
+     
+    order = client.orders.create!(
+      user: client,
+      event_type: event, 
+      date: '2024-07-14', 
+      guests: 100, 
+      details: 'Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.',
+      location: 'Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo',
+      status: 'waiting',
+      payment_method: 'Pix',
+      discount: 0,
+      extra_fee: 0,
+      description: '',
+      expiry_date: '2024-06-20'
+    )
+
+    login_as(client)
+    visit order_path(order)
+    click_on 'Confirmar pedido'
+    
+    expect(page).to have_content 'Pedido confirmado com sucesso'
+    expect(page).to have_content 'Status: Pedido confirmado'
+    expect(page).to have_link 'Voltar'  
+  end
+  it 'e cancela pedido' do
+    client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'password')
+    buffet_owner = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
+    buffet = buffet_owner.create_buffet!(
+      corporate_name: 'Buffet Harmonia dos Sabores Ltda',
+      brand_name: 'Buffet Harmonia dos Sabores Eventos',
+      registration_number: '13579246000190',
+      telephone: '1133334444',
+      email: 'contato@harmoniadosabores.com.br',
+      address: 'Rua das Delícias, 789',
+      district: 'Vila Gastronômica',
+      cep: '98765432',
+      city: 'Cidade dos Sabores',
+      state: 'Minas Gerais',
+      description: 'O Buffet Eventos Harmonia dos Sabores proporciona uma combinação única de sabores e experiências para seu evento. Com menus personalizados e um ambiente acolhedor, estamos prontos para fazer do seu evento um verdadeiro sucesso.',
+      payment_methods: 'Pix, transferência bancária e dinheiro'
+    )
+    event = buffet.event_types.create!(
+      name: 'Evento de confraternização',
+      description: 'Um evento especial para relaxar, se divertir e estreitar laços com colegas',
+      capacity_min: 150,
+      capacity_max: 500,
+      duration: 240,
+      food_menu: 'Jantar com frutos do mar e vinhos',
+      alcoholic_drinks: true,
+      decoration: true,
+      parking_service: false,
+      buffet_exclusive_address: false,
+      client_specified_address: true
+    )
+    event.base_prices.create!(
+      title: 'De segunda à sexta',
+      minimum_value: 10000,
+      additional_value_per_person: 150,
+      extra_hour_value: 1000,
+    )
+    event.base_prices.create!(
+      title: 'Finais de semana e feriados',
+      minimum_value: 25000,
+      additional_value_per_person: 250,
+      extra_hour_value: 3000,
+    )
+     
+    order = client.orders.create!(
+      user: client,
+      event_type: event, 
+      date: '2024-07-14', 
+      guests: 100, 
+      details: 'Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.',
+      location: 'Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo',
+      status: 'waiting',
+      payment_method: 'Pix',
+      discount: 0,
+      extra_fee: 0,
+      description: '',
+      expiry_date: '2024-06-20'
+    )
+
+    login_as(client)
+    visit order_path(order)
+    click_on 'Cancelar pedido'
+    
+    expect(page).to have_content 'Pedido cancelado com sucesso'
+    expect(page).to have_content 'Status: Pedido cancelado'
+    expect(page).to have_link 'Voltar'
+  end
+  it 'e a data de validade expirou' do
+    client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'password')
+    buffet_owner = User.create!(role: 'buffet_owner', email: 'janne@email.com', password: 'password')
+    buffet = buffet_owner.create_buffet!(
+      corporate_name: 'Buffet Harmonia dos Sabores Ltda',
+      brand_name: 'Buffet Harmonia dos Sabores Eventos',
+      registration_number: '13579246000190',
+      telephone: '1133334444',
+      email: 'contato@harmoniadosabores.com.br',
+      address: 'Rua das Delícias, 789',
+      district: 'Vila Gastronômica',
+      cep: '98765432',
+      city: 'Cidade dos Sabores',
+      state: 'Minas Gerais',
+      description: 'O Buffet Eventos Harmonia dos Sabores proporciona uma combinação única de sabores e experiências para seu evento. Com menus personalizados e um ambiente acolhedor, estamos prontos para fazer do seu evento um verdadeiro sucesso.',
+      payment_methods: 'Pix, transferência bancária e dinheiro'
+    )
+    event = buffet.event_types.create!(
+      name: 'Evento de confraternização',
+      description: 'Um evento especial para relaxar, se divertir e estreitar laços com colegas',
+      capacity_min: 150,
+      capacity_max: 500,
+      duration: 240,
+      food_menu: 'Jantar com frutos do mar e vinhos',
+      alcoholic_drinks: true,
+      decoration: true,
+      parking_service: false,
+      buffet_exclusive_address: false,
+      client_specified_address: true
+    )
+    event.base_prices.create!(
+      title: 'De segunda à sexta',
+      minimum_value: 10000,
+      additional_value_per_person: 150,
+      extra_hour_value: 1000,
+    )
+    event.base_prices.create!(
+      title: 'Finais de semana e feriados',
+      minimum_value: 25000,
+      additional_value_per_person: 250,
+      extra_hour_value: 3000,
+    )
+     
+    order = client.orders.create!(
+      user: client,
+      event_type: event, 
+      date: '2024-05-06', 
+      guests: 100, 
+      details: 'Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.',
+      location: 'Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo',
+      status: 'expired',
+      expiry_date: Date.yesterday
+    )
+
+    login_as(client)
+    visit order_path(order)
+    
+    expect(page).to have_content 'Atenção: A data para confirmação do pedido expirou!'
+    expect(page).to have_content 'Status: Pedido expirado'
+    expect(page).to have_link 'Voltar' 
+  end
 end

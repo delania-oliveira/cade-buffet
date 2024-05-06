@@ -63,6 +63,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  def confirmed
+    @order = Order.find(params[:id])
+    @order.update(status: 'confirmed')
+    redirect_to @order, 
+    notice: 'Pedido confirmado com sucesso'
+  end
+
   def canceled
     @order = Order.find(params[:id])
     @order.update(status: 'canceled')
