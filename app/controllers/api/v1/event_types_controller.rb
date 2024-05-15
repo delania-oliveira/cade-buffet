@@ -1,6 +1,7 @@
 class Api::V1::EventTypesController < ActionController::API
   def index
-    event_types = EventType.all
+    buffet = Buffet.find(params[:buffet_id])
+    event_types = buffet.event_types
     
     if event_types.empty?
       render status: 404, json: { error: 'Esse buffet não possui eventos cadastrados' }

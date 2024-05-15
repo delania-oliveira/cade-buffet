@@ -10,9 +10,9 @@ class Api::V1::OrdersController < ActionController::API
     ).first
     
     if guests > event_type.capacity_max || guests < event_type.capacity_min
-      render status: 200, json: { message: 'A quantidade de convidados é maior ou menor que a quantidade mínima ou máxima suportada'}
+      render status: 200, json: { guest_message: 'A quantidade de convidados é maior ou menor que a quantidade mínima ou máxima suportada'}
     elsif confirmed_order
-      render status: 200, json: { message: 'O buffet não está disponível para essa data'}
+      render status: 200, json: { unavailable_message: 'O buffet não está disponível para essa data'}
     else
       initial_price = calculate_initial_price(event_type, guests, date)
       render status: 200, json: {initial_price: initial_price}
