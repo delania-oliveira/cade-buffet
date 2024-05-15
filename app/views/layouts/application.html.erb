@@ -6,32 +6,37 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag "application" %>
   </head>
   <body>
-    <header>
-      <div>
-        <span><%= link_to 'Cadê Buffet?', root_path %></span>
-      </div>
-      <% if !current_page?(root_path) %>
-        <%= form_with(url: search_buffets_path, method: :get) do |f| %>
-          <%= f.text_field :query %>
-          <%= f.submit 'Buscar' %>
-        <% end %>
-      <% end %>
-      <nav>
+    <header class="bg-[#fff9] backdrop-blur">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 px-8" aria-label="Global">
+        <div class="flex flex-1">
+          <a href="#" class="-m-1.5 p-1.5">
+            <span class="sr-only"><%= link_to 'Cadê Buffet?', root_path %></span>
+            <!-- <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""> -->
+          </a>
+        </div>
+          <% if !current_page?(root_path) %>
+            <%= form_with(url: search_buffets_path, method: :get) do |f| %>
+              <%= f.text_field :query %>
+              <%= f.submit 'Buscar' %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="flex flex-1 justify-end gap-4 items-center">
         <% if user_signed_in? %>
           <% if current_user.buffet_owner? %>
-            <span><%= link_to 'Pedidos', orders_path %></span>
+            <%= link_to 'Pedidos', orders_path, class: "hover:text-primary" %>
           <% else %>
-            <span><%= link_to 'Meus Pedidos', orders_path %></span>
+            <%= link_to 'Meus Pedidos', orders_path, class: "hover:text-primary" %>
           <% end %>
-          <span><%= button_to 'Sair', destroy_user_session_path, method: :delete %></span>
+            <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "bg-background shadow-sm inline-block px-6 py-3 rounded-lg hover:bg-accent hover:text-accent-foreground" %>
         <% else %>
-          <span><%= link_to 'Criar uma conta', new_user_registration_path %></span>
-          <span><%= link_to 'Entrar', new_user_session_path %></span>
+            <%= link_to 'Entrar', new_user_session_path, class: "text-primary bg-background inline-block px-5 py-3 border border-primary rounded-lg shadow-md hover:bg-primary hover:text-primary-foreground" %>
+            <%= link_to 'Criar uma conta', new_user_registration_path, class: "bg-primary text-primary-foreground inline-block p-3 border border-primary rounded-lg shadow-md hover:bg-primary/90" %>
         <% end %>
+        </div>
       </nav>
     </header>
     <main class="container mx-auto mt-28 px-5 flex">
