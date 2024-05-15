@@ -62,4 +62,5 @@ Rails.application.configure do
 
   # active storage development
   config.active_storage.service = :local
+  config.assets.prefix = "/dev-assets"
 end
