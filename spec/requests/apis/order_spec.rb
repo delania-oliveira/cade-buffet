@@ -128,7 +128,7 @@ describe 'Order API' do
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
       json_response = JSON.parse(response.body)
-      expect(json_response["message"]).to eq 'O buffet não está disponível para essa data'
+      expect(json_response["unavailable_message"]).to eq 'O buffet não está disponível para essa data'
 
     end
   end
