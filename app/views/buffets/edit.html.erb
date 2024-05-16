@@ -1,12 +1,19 @@
-<h1>Editar informações do Buffet</h1>
+<div class="mx-auto max-w-7xl">
+  <h2 class="text-foreground text-2xl my-6">Editar informações do Buffet</h2>
 
-<% if(@buffet.errors.any?) %>
-  <p>Verifique os erros a seguir:</p>
-  <ul>
-    <% @buffet.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-    <% end %>
-  </ul>
-<% end %>
+   <% if(@buffet.errors.any?) %>
+    <div class="flex justify-center items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50">
+      <div>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span class="font-medium">Verifique os erros a seguir:</span> 
+        <ul class="mt-2">
+           <% @buffet.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+           <% end %>
+        </ul>  
+      </div>
+    </div>
+  <% end %>
 
-<%= render 'form' %>
+  <%= render 'form' %>
+</div>
