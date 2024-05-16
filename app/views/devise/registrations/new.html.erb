@@ -1,52 +1,69 @@
-<h2>Criar conta</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  
-  <div class="field">
-    <%= f.label :role, 'Tipo de Conta' %>
-    <%= f.select :role, 
-        options_for_select(
-          User.roles.keys.map {
-            |role| [t("activerecord.attributes.user.roles.#{role}"), role]
-          },), {}, { id: 'user_role' } 
-    %>
+<div class="relative flex w-full h-full items-center bg-secondary">
+  <div class="absolute top-10 left-10">
+    <%= link_to 'Cadê Buffet?', root_path %>
+  </div>
+  <div class="flex-1">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "max-w-sm mx-auto"}) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <h2 class="text-foreground text-2xl mb-6">Criar conta</h2>
+      
+      <div class="mb-4">
+        <%= f.label :role, 'Tipo de Conta', class:"block mb-1 text-sm font-medium text-gray-900" %>
+        <%= f.select :role, 
+            options_for_select(
+              User.roles.keys.map {
+                |role| [t("activerecord.attributes.user.roles.#{role}"), role]
+              },), {}, { id: 'user_role', class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" }
+        %>
+      </div>
+
+      <div class="flex flex-row gap-4">
+        <div class="mb-4" id="name-field" style="display: block">
+          <%= f.label :name, class:"block mb-1 text-sm font-medium text-gray-900" %>
+          <%= f.text_field :name, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+        </div>
+
+        <div class="mb-4" id="individual-registration-field" style="display: block">
+          <%= f.label :individual_registration, class:"block mb-1 text-sm font-medium text-gray-900" %>
+          <%= f.text_field :individual_registration, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <%= f.label :email, class:"block mb-1 text-sm font-medium text-gray-900" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+      </div>
+
+      <div class="flex flex-row gap-4 items-end">
+        <div class="mb-4">
+          <%= f.label :password, class:"block mb-1 text-sm font-medium text-gray-900" %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "new-password", class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :password_confirmation, class:"block mb-1 text-sm font-medium text-gray-900" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+        </div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Criar conta", class:"text-white bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center cursor-pointer" %>
+      </div>
+
+      <div class="flex justify-center mx-auto my-8">
+        <span>Já tem um cadastro? <%= link_to 'Faça login!', new_user_registration_path, class: "hover:underline"%></span>
+      </div>
+    <% end %>
   </div>
 
-  <div class="field" id="name-field" style="display: block">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="flex-1">
+    <%= image_tag '/buffet-login.jpg', class:"w-full h-dvh object-cover"%>
   </div>
-
-  <div class="field" id="individual-registration-field" style="display: block">
-    <%= f.label :individual_registration %>
-    <%= f.text_field :individual_registration %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Criar conta" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

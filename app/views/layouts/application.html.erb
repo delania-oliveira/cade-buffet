@@ -10,42 +10,44 @@
     <%= stylesheet_link_tag "application" %>
   </head>
   <body>
-    <header class="bg-[#e4e4e499] backdrop-blur relative z-50">
-      <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 px-8" aria-label="Global">
-        <div class="flex flex-1">
-          <a href="#" class="-m-1.5 p-1.5">
-            <span class="sr-only"><%= link_to 'Cadê Buffet?', root_path %></span>
-            <!-- <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""> -->
-          </a>
-        </div>
-          <% if !current_page?(root_path) %>
-            <%= form_with(url: search_buffets_path, method: :get, html: { class:"max-w-lg mx-auto" }) do |f| %>
-              <%= f.label :query, class:"mb-2 text-sm font-medium text-muted-foreground sr-only" %>
-              <div class="relative">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <i class="fa-solid fa-magnifying-glass text-muted-foreground"></i>
+    <% if !current_page?(new_user_session_path) && !current_page?(new_user_registration_path) %>    
+      <header class="bg-[#e4e4e499] backdrop-blur relative z-50">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 px-8" aria-label="Global">
+          <div class="flex flex-1">
+            <a href="#" class="-m-1.5 p-1.5">
+              <span class="sr-only"><%= link_to 'Cadê Buffet?', root_path %></span>
+              <!-- <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""> -->
+            </a>
+          </div>
+            <% if !current_page?(root_path) %>
+              <%= form_with(url: search_buffets_path, method: :get, html: { class:"max-w-lg mx-auto" }) do |f| %>
+                <%= f.label :query, class:"mb-2 text-sm font-medium text-muted-foreground sr-only" %>
+                <div class="relative">
+                  <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                      <i class="fa-solid fa-magnifying-glass text-muted-foreground"></i>
+                  </div>
+                  <%= f.text_field :query, class:"block w-full p-4 ps-10 text-sm text-muted-foreground border border-gray-300 rounded-lg bg-gray-50" %>
+                  <%= f.submit 'Buscar', class:"text-white absolute end-2.5 bottom-2.5 bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm px-4 py-2 cursor-pointer" %>    
                 </div>
-                <%= f.text_field :query, class:"block w-full p-4 ps-10 text-sm text-muted-foreground border border-gray-300 rounded-lg bg-gray-50" %>
-                <%= f.submit 'Buscar', class:"text-white absolute end-2.5 bottom-2.5 bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm px-4 py-2 cursor-pointer" %>    
-              </div>
+              <% end %>
             <% end %>
-          <% end %>
-        </div>
-        <div class="flex flex-1 justify-end gap-4 items-center">
-        <% if user_signed_in? %>
-          <% if current_user.buffet_owner? %>
-            <%= link_to 'Pedidos', orders_path, class: "hover:text-primary" %>
+          </div>
+          <div class="flex flex-1 justify-end gap-4 items-center">
+          <% if user_signed_in? %>
+            <% if current_user.buffet_owner? %>
+              <%= link_to 'Pedidos', orders_path, class: "hover:text-primary" %>
+            <% else %>
+              <%= link_to 'Meus Pedidos', orders_path, class: "hover:text-primary" %>
+            <% end %>
+              <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "bg-background shadow-sm inline-block px-6 py-3 rounded-lg hover:bg-accent hover:text-accent-foreground" %>
           <% else %>
-            <%= link_to 'Meus Pedidos', orders_path, class: "hover:text-primary" %>
+              <%= link_to 'Entrar', new_user_session_path, class: "text-primary inline-block px-5 py-3 border border-primary rounded-lg shadow-md hover:bg-primary hover:text-primary-foreground" %>
+              <%= link_to 'Criar uma conta', new_user_registration_path, class: "bg-primary text-primary-foreground inline-block p-3 border border-primary rounded-lg shadow-md hover:bg-primary/90" %>
           <% end %>
-            <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "bg-background shadow-sm inline-block px-6 py-3 rounded-lg hover:bg-accent hover:text-accent-foreground" %>
-        <% else %>
-            <%= link_to 'Entrar', new_user_session_path, class: "text-primary inline-block px-5 py-3 border border-primary rounded-lg shadow-md hover:bg-primary hover:text-primary-foreground" %>
-            <%= link_to 'Criar uma conta', new_user_registration_path, class: "bg-primary text-primary-foreground inline-block p-3 border border-primary rounded-lg shadow-md hover:bg-primary/90" %>
-        <% end %>
-        </div>
-      </nav>
-    </header>
+          </div>
+        </nav>
+      </header>
+    <% end %>
     <main class="">
       <div>
         <p class="notice"><%= notice %></p>
@@ -53,11 +55,5 @@
       </div>
       <%= yield %>
     </main>
-    <footer class="bg-primary-foreground text-center mt-8">
-      <div class="p-4 text-center text-surface text-muted-foreground">
-        Feito por
-        <a href="https://github.com/delania-oliveira" class="text-primary hover:underline">Delania Oliveira</a>
-      </div>
-    </footer>
   </body>
 </html>
