@@ -1,14 +1,22 @@
-<span><%= link_to 'Voltar para página inicial', root_path %></span>
-<h1>Resultado da Busca</h1>
-<span><%= @buffets.count %> <%= Buffet.model_name.human(count: @buffets.count).downcase %> 
-<%= t(:found, count: @buffets.count) %> para "<%= @query %>"</span>
 
-<div>
-  <% @buffets.each do |buffet| %>
-    <div>
-      <h3><%= link_to buffet.brand_name, buffet %></h3>
-      <span><%= buffet.city %></span>
-      <span><%= buffet.state %></span>
-    </div>
-  <% end %>
+<div class="mx-auto flex flex-col max-w-7xl justify-between p-6 px-8">
+  <%= link_to 'Voltar para página inicial', root_path, class:"hover:underline mt-4 mb-10" %>
+
+
+  <h1 class="text-4xl font-bold text-foreground mb-4">Resultado da Busca</h1>
+  <span class="text-muted-foreground"><%= @buffets.count %> <%= Buffet.model_name.human(count: @buffets.count).downcase %> 
+  <%= t(:found, count: @buffets.count) %> para "<%= @query %>"</span>
+  <hr class="my-12 h-0.5 border-t-0 bg-neutral-100 mt-2.5" />
+
+  <div class="grid grid-cols-3 gap-4 mx-auto justify-center content-center">
+    <% @buffets.each do |buffet| %>
+      <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+        <img class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
+        <div class="p-5">
+          <%= link_to buffet.brand_name, buffet, class:"mb-2 text-2xl font-semibold tracking-tight text-primary hover:text-primary/90" %>
+          <p class="mb-3 font-normal text-muted-foreground"><i class="fa-solid fa-location-dot"></i> <%= buffet.city %> - <%= buffet.state %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

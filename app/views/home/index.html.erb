@@ -1,16 +1,42 @@
-<%= form_with(url: search_buffets_path, method: :get) do |f| %>
-  <%= f.text_field :query %>
-  <%= f.submit 'Buscar' %>
-<% end %>
+<div>
+  <div>
+    <div class="relative z-10">
+      <img src="buffet.jpg" alt="" class="-mt-[100px] object-cover w-full h-[660px]"/>
+      <div class="absolute bottom-0 left-0 w-full h-[50%] bg-gradient-to-t from-white to-transparent"></div>
+    </div>
 
-<h1>Buffets<h1>
+    <%= form_with(url: search_buffets_path, method: :get, html: { class:"max-w-2xl mx-auto mb-8" }) do |f| %>
+      <%= f.label :query, class:"mb-2 text-sm font-medium text-muted-foreground sr-only" %>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <i class="fa-solid fa-magnifying-glass text-muted-foreground"></i>
+        </div>
+        <%= f.text_field :query, class:"block w-full p-4 ps-10 text-sm text-muted-foreground border border-gray-300 rounded-lg bg-gray-50" %>
+        <%= f.submit 'Buscar', class:"text-white absolute end-2.5 bottom-2.5 bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm px-4 py-2 cursor-pointer" %>    
+      </div>
+    <% end %>
+  </div>
 
-<% @buffets.each do |buffet| %>
-  <h3><%= link_to buffet.brand_name, buffet %></h3>
-  <span>Cidade: <%= buffet.city %></span>
-  <span>Estado: <%= buffet.state %></span>
-<% end %>
+  <div class="mx-auto flex flex-col max-w-7xl justify-between p-6 px-8">
+    
+    <h1 class="text-4xl font-bold text-foreground">Buffets</h1>
+    <hr class="my-12 mt-2.5 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-muted-foreground to-transparent opacity-25" />
 
-<% if @buffets.empty? %>
-  <p>Não existem Buffets cadastrados</p>
-<% end %>
+    <div class="grid grid-cols-3 gap-4 mx-auto justify-center content-center">
+      <% @buffets.each do |buffet| %>
+        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+          <img class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
+          <div class="p-5">
+            <%= link_to buffet.brand_name, buffet, class:"mb-2 text-2xl font-semibold tracking-tight text-primary hover:text-primary/90" %>
+            <p class="mb-3 font-normal text-muted-foreground"><i class="fa-solid fa-location-dot"></i> <%= buffet.city %> - <%= buffet.state %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+
+    <% if @buffets.empty? %>
+      <p class="text-center">Não existem Buffets cadastrados</p>
+    <% end %>
+  </div>
+</div>
