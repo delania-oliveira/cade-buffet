@@ -1,131 +1,134 @@
 <% if current_user&.buffet_owner? && @buffet == current_user.buffet %>
-  <div>
-    <section>
-      <h2>Informações do Buffet</h2>
-
-      <div>
-        <span>Razão Social:</span>
-        <span><%= @buffet.corporate_name %></span>
-      </div>
-      <div>
-        <span>Nome Fantasia:</span>
-        <span><%= @buffet.brand_name %></span>
-      </div>
-      <div>
-        <span>CNPJ:</span>
-        <span><%= @buffet.registration_number %></span>
-      </div>
-      <div>
-        <span>Telefone:</span>
-        <span><%= @buffet.telephone %></span>
-      </div>
-      <div>
-        <span>E-mail:</span>
-        <span><%= @buffet.email %></span>
-      </div>
-      <div>
-        <span>Endereço:</span>
-        <span><%= @buffet.address %></span>
-      </div>
-      <div>
-        <span>Bairro:</span>
-        <span><%= @buffet.district %></span>
-      </div>
-      <div>
-        <span>CEP:</span>
-        <span><%= @buffet.cep %></span>
-      </div>
-      <div>
-        <span>Cidade:</span>
-        <span><%= @buffet.city %></span>
-      </div>
-      <div>
-        <span>Estado:</span>
-        <span><%= @buffet.state %></span>
-      </div>
-      <div>
-        <span>Descrição:</span>
-        <span><%= @buffet.description %></span>
-      </div>
-      <div>
-        <span>Meios de Pagamento:</span>
-        <span><%= @buffet.payment_methods %></span>
-      </div>
-        <span><%= link_to 'Editar Informações', edit_buffet_path %></span>
-    </section>
-  </div>
-
-  <div>
-    <div>
-      <span><%= link_to 'Criar Evento', new_event_type_path %></span>
+<div class="mx-auto grid grid-cols-2 gap-4 max-w-7xl justify-between p-6 px-8">
+  <div class="p-8 bg-white border border-gray-200 rounded-lg shadow ">
+    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Informações do Buffet</h2>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Razão Social:</span> <%= @buffet.corporate_name %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Nome Fantasia:</span> <%= @buffet.brand_name %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">CNPJ:</span> <%= @buffet.registration_number %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Telefone:</span> <%= @buffet.telephone %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">E-mail:</span> <%= @buffet.email %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Endereço:</span> <%= @buffet.address %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Bairro:</span> <%= @buffet.district %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">CEP:</span> <%= @buffet.cep %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Cidade:</span> <%= @buffet.city %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Estado:</span> <%= @buffet.state %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Descrição:</span> <%= @buffet.description %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Meios de Pagamento:</span> <%= @buffet.payment_methods %>
+    </p>
+    
+    <div class="flex justify-end">
+      <%= link_to 'Editar Informações', edit_buffet_path, class: "text-sm inline-block px-6 py-3 rounded-lg hover:shadow-sm hover:bg-accent hover:text-accent-foreground" %>
     </div>
-    <section>
-      <h3>Lista de Eventos</h3>
-      <% @buffet.event_types.each do |event| %>
-      <div>
-        <span><%= event.name %></span>
-        <span><%= link_to 'Ver Detalhes', event_type_path(event) %></span>
-      </div>
-      <% end %>
-    </section>
   </div>
+  <div class="p-8 bg-white border border-gray-200 rounded-lg shadow">
+    <div class="flex items-center justify-between mb-4">
+        <h5 class="text-xl font-bold leading-none text-gray-900 ">Lista de Eventos</h5>
+        <%= link_to 'Criar Evento', new_event_type_path, class:"text-white bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm w-sm px-5 py-2.5 text-center" %>
+    </div>
+    <div class="flow-root">
+      <ul role="list" class="divide-y divide-gray-200 ">
+        <% @buffet.event_types.each do |event| %>
+          <li class="py-4">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <i class="fa-solid fa-champagne-glasses text-muted-foreground text-2xl"></i>
+              </div>
+              <div class="flex-1 min-w-0 ms-4">
+                <p class="text-md font-medium text-foreground truncate ">
+                  <%= event.name %>
+                </p>
+              </div>
+              <div class="inline-flex items-center">
+                <%= link_to 'Ver Detalhes', event_type_path(event), class:"text-sm border border-border inline-block px-5 py-2.5 rounded-lg shadow-sm hover:bg-accent hover:text-accent-foreground" %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
 <% else %>
-  <div>
-    <section>
-      <h2>Informações do Buffet</h2>
-
-      <div>
-        <span>Nome Fantasia:</span>
-        <span><%= @buffet.brand_name %></span>
+  <div class="mx-auto grid grid-cols-2 gap-4 max-w-7xl justify-between p-6 px-8">
+    <div class="p-8 bg-white border border-gray-200 rounded-lg shadow ">
+      <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Informações do Buffet</h2>
+      <p class="mb-3 font-normal text-gray-700">
+        <span class="text-muted-foreground">Nome:</span> <%= @buffet.brand_name %>
+      </p>
+      <p class="mb-3 font-normal text-gray-700">
+        <span class="text-muted-foreground">Descrição:</span> <%= @buffet.description %>
+      </p>
+      <p class="mb-3 font-normal text-gray-700">
+        <span class="text-muted-foreground">CNPJ:</span> <%= @buffet.registration_number %>
+      </p>
+      <p class="mb-3 font-normal text-gray-700">
+        <span class="text-muted-foreground">Telefone:</span> <%= @buffet.telephone %>
+      </p>
+      <p class="mb-3 font-normal text-gray-700">
+        <span class="text-muted-foreground">E-mail:</span> <%= @buffet.email %>
+      </p>
+      <p class="mb-3 font-normal text-gray-700">
+        <span class="text-muted-foreground">Endereço:</span> <%= @buffet.address %>, <%= @buffet.district %>. CEP:</span> <%= @buffet.cep %>. </span> <%= @buffet.city %> - <%= @buffet.state %>.
+      </p>
+      <p class="mb-3 font-normal text-gray-700">
+        <span class="text-muted-foreground">Meios de pagamento aceitos:</span> <%= @buffet.payment_methods %>
+      </p>
+    </div>
+    <div class="p-8 bg-white border border-gray-200 rounded-lg shadow">
+      <div class="mb-4">
+          <h5 class="text-xl font-bold leading-none text-gray-900 ">Lista de Eventos</h5>
       </div>
-      <div>
-        <span>Descrição:</span>
-        <span><%= @buffet.description %></span>
-      </div>
-      <div>
-        <span>CNPJ:</span>
-        <span><%= @buffet.registration_number %></span>
-      </div>
-      <div>
-        <span>Telefone:</span>
-        <span><%= @buffet.telephone %></span>
-      </div>
-      <div>
-        <span>E-mail:</span>
-        <span><%= @buffet.email %></span>
-      </div>
-      <div>
-        <span>Endereço:</span>
-        <span><%= @buffet.address %> - <%= @buffet.district %></span>
-      </div>
-      <div>
-        <span>CEP:</span>
-        <span><%= @buffet.cep %></span>
-      </div>
-      <div>
-        <span>Cidade:</span>
-        <span><%= @buffet.city %></span>
-      </div>
-      <div>
-        <span>Estado:</span>
-        <span><%= @buffet.state %></span>
-      </div>
-      <div>
-        <span>Meios de Pagamento:</span>
-        <span><%= @buffet.payment_methods %></span>
-      </div>
-    </section>
-    <section>
-      <h3>Lista de Eventos</h3>
-      <% @buffet.event_types.each do |event| %>
-        <div>
-          <% if event.images.any? %>
-            <%= image_tag event.images.first.variant(resize_to_limit: [280, 185]) %>
+      <div class="flow-root">
+        <ul role="list" class="divide-y divide-gray-200 ">
+          <% @buffet.event_types.each do |event| %>
+            <li class="py-4">
+              <div class="flex items-center">
+                  <% if event.images.any? %>
+                    <div class="flex-shrink-0">
+                      <%= image_tag event.images.first.variant(resize_to_limit: [280, 185]) %>
+                    </div>
+                    <% else %>
+                      <div class="flex-shrink-0">
+                        <i class="fa-solid fa-champagne-glasses text-muted-foreground text-2xl"></i>
+                    </div>
+                  <% end %>
+                <div class="flex-1 min-w-0 ms-4">
+                  <p class="text-md font-medium text-foreground truncate ">
+                    <%= event.name %>
+                  </p>
+                </div>
+                <div class="inline-flex items-center">
+                  <%= link_to 'Ver Detalhes', event_type_path(event), class:"text-white bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm w-sm px-5 py-2.5 text-center" %>
+                </div>
+              </div>
+            </li>
           <% end %>
-          <span><%= event.name %></span>
-          <span><%= link_to 'Ver Detalhes', event_type_path(event) %></span>
-        </div>
-      <% end %>
-    </section>
+        </ul>
+      </div>
+    </div>
   </div>
 <% end %>
+

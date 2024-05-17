@@ -34,12 +34,12 @@
           </div>
           <div class="flex flex-1 justify-end gap-4 items-center">
           <% if user_signed_in? %>
-            <% if current_user.buffet_owner? %>
+            <% if current_user.buffet_owner? && !current_user.buffet.nil? %>
               <%= link_to 'Pedidos', orders_path, class: "hover:text-primary" %>
-            <% else %>
+            <% elsif current_user.client? %>
               <%= link_to 'Meus Pedidos', orders_path, class: "hover:text-primary" %>
             <% end %>
-              <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "bg-background shadow-sm inline-block px-6 py-3 rounded-lg hover:bg-accent hover:text-accent-foreground" %>
+              <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "inline-block px-6 py-3 rounded-lg hover:shadow-sm hover:bg-accent hover:text-accent-foreground" %>
           <% else %>
               <%= link_to 'Entrar', new_user_session_path, class: "text-primary inline-block px-5 py-3 border border-primary rounded-lg shadow-md hover:bg-primary hover:text-primary-foreground" %>
               <%= link_to 'Criar uma conta', new_user_registration_path, class: "bg-primary text-primary-foreground inline-block p-3 border border-primary rounded-lg shadow-md hover:bg-primary/90" %>
