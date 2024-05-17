@@ -1,39 +1,48 @@
-<h1>Cadastre um preço-base</h1>
+<div class="mx-auto max-w-7xl">
+  <h2 class="text-foreground text-2xl my-6">Cadastre um preço-base</h2>
 
-<% if(@base_price.errors.any?) %>
-  <p>Verifique os erros a seguir:</p>
-  <ul>
-    <% @base_price.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-    <% end %>
-  </ul>
-<% end %>
+  <% if(@base_price.errors.any?) %>
+    <div class="flex justify-center items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50">
+      <div>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span class="font-medium">Verifique os erros a seguir:</span> 
+        <ul class="mt-2">
+           <% @base_price.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+           <% end %>
+        </ul>  
+      </div>
+    </div>
+  <% end %>
 
-<%= form_with(model: [@event_type, @base_price]) do |f| %>
-  <div>
-    <%= f.label :title %>
-    <%= f.select :title,
+  <%= form_with(model: [@event_type, @base_price], html: {class: "max-w-lg mx-auto"}) do |f| %>
+    <div class="mb-4">
+      <%= f.label :title, class:"block mb-1 text-sm font-medium text-gray-900" %>
+      <%= f.select :title,
         options_for_select([
           ['De segunda à domingo, incluindo feriados','De segunda à domingo, incluindo feriados'],
           ['De segunda à sexta','De segunda à sexta'],
           ['Finais de semana e feriados','Finais de semana e feriados']
-        ].prepend(['Selecione uma configuração', '']))
-    %>
-  </div>
-  <div>
-    <%= f.label :minimum_value %>
-    <%= f.number_field :minimum_value %>
-  </div>
-  <div>
-    <%= f.label :additional_value_per_person %>
-    <%= f.number_field :additional_value_per_person %>
-  </div>
-  <div>
-    <%= f.label :extra_hour_value %>
-    <%= f.number_field :extra_hour_value %>
-  </div>
-  
-  <div>
-      <%= f.submit 'Cadastrar preço-base' %>
-  </div>
-<% end %>
+        ].prepend(['Selecione uma configuração', ''])), {}, {class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"}
+      %>
+    </div>
+    <div class="mb-4">
+      <%= f.label :minimum_value, class:"block mb-1 text-sm font-medium text-gray-900" %>
+      <%= f.number_field :minimum_value, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+    </div>
+    <div class="flex flex-row gap-4 items-end">
+      <div class="mb-4 flex-grow">
+        <%= f.label :additional_value_per_person, class:"block mb-1 text-sm font-medium text-gray-900" %>
+        <%= f.number_field :additional_value_per_person, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+      </div>
+      <div class="mb-4 flex-grow">
+        <%= f.label :extra_hour_value, class:"block mb-1 text-sm font-medium text-gray-900" %>
+        <%= f.number_field :extra_hour_value, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+      </div>
+    </div>
+    
+    <div class="my-8">
+      <%= f.submit 'Cadastrar preço-base', class:"text-white bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center cursor-pointer" %>
+    </div> 
+  <% end %> 
+</div>
