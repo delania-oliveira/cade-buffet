@@ -1,93 +1,91 @@
-<h1>Editar Evento</h1>
+<div class="mx-auto max-w-7xl">
+  <h2 class="text-foreground text-2xl my-6">Editar Evento</h2>
 
-<% if(@event_type.errors.any?) %>
-  <p>Verifique os erros a seguir:</p>
-  <ul>
-    <% @event_type.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<%= form_with(model: @event_type) do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-  
-  <div>
-    <%= f.label :capacity_min %>
-    <%= f.number_field :capacity_min %>
-  </div>
-  
-  <div>
-    <%= f.label :capacity_max %>
-    <%= f.number_field :capacity_max %>
-  </div>
-  
-  <div>
-    <%= f.label :duration %>
-    <%= f.number_field :duration %>
-  </div>
-  
-  <div>
-    <%= f.label :food_menu %>
-    <%= f.text_area :food_menu %>
-  </div>
-  
-  <div>
-    <span>Opções de serviços:</span>
-    <div>
-      <%= f.check_box :alcoholic_drinks %>
-      <%= f.label :alcoholic_drinks %>
-    </div>
-    <div>
-      <%= f.check_box :decoration %>
-      <%= f.label :decoration %>
-    </div>
-    <div>
-      <%= f.check_box :parking_service %>
-      <%= f.label :parking_service %>
-    </div>
-  </div>
-
-  <div>
-    <span>Flexibilidade de local:</span>
-    <div>
-      <%= f.check_box :buffet_exclusive_address %>
-      <%= f.label :buffet_exclusive_address %>
-    </div>
-    <div>
-      <%= f.check_box :client_specified_address %>
-      <%= f.label :client_specified_address %>
-    </div>
-  </div>
-
-  <div>
-    <span>Imagens do evento:</span>
-    <% @event_type.images.each do |image| %>
+   <% if(@event_type.errors.any?) %>
+    <div class="flex justify-center items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50">
       <div>
-        <%= image_tag image %>
-        <%= check_box_tag 'event_type[remove_image_ids][]', image.id, false, id: "remove_image_#{image.id}" %>
-        <%= label_tag "remove_image_#{image.id}", 'Remover foto' %>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span class="font-medium">Verifique os erros a seguir:</span> 
+        <ul class="mt-2">
+           <% @event_type.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+           <% end %>
+        </ul>  
       </div>
-    <% end %>
+    </div>
+  <% end %>
 
-    <% if @event_type.images.count < 4 %>
-      <%= f.label :images, 'Adicionar imagens do evento' %>
-      <%= f.file_field :images, multiple: true %>
-    <% else %>
-      <span>Limite imagems foi atigindo</span>
-    <% end %>
-  </div>
+  <%= form_with(model: @event_type, html: {class: "max-w-lg mx-auto"}) do |f| %>
+    <div class="mb-4">
+      <%= f.label :name, class:"block mb-1 text-sm font-medium text-gray-900" %>
+      <%= f.text_field :name, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+    </div>
+    <div class="mb-4">
+      <%= f.label :description, class:"block mb-1 text-sm font-medium text-gray-900" %>
+      <%= f.text_area :description, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+    </div>
+    <div class="flex flex-row gap-4 items-end">
+      <div class="mb-4 flex-grow">
+        <%= f.label :capacity_min, class:"block mb-1 text-sm font-medium text-gray-900" %>
+        <%= f.number_field :capacity_min, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+      </div>
+      <div class="mb-4 flex-grow">
+        <%= f.label :capacity_max, class:"block mb-1 text-sm font-medium text-gray-900" %>
+        <%= f.number_field :capacity_max, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+      </div>
+      <div class="mb-4 flex-grow">
+        <%= f.label :duration, class:"block mb-1 text-sm font-medium text-gray-900" %>
+        <%= f.number_field :duration, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+      </div>
+    </div>
+    <div class="mb-4">
+      <span class="block mb-1 text-sm font-medium text-gray-900">Opções de serviços:</span>
+      <div>
+        <%= f.check_box :alcoholic_drinks, class:"w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3" %>
+        <%= f.label :alcoholic_drinks, class:"ms-2 text-sm font-medium text-gray-900" %>
+      </div>
+      <div>
+        <%= f.check_box :decoration, class:"w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3" %>
+        <%= f.label :decoration, class:"ms-2 text-sm font-medium text-gray-900" %>
+      </div>
+      <div>
+        <%= f.check_box :parking_service, class:"w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3" %>
+        <%= f.label :parking_service, class:"ms-2 text-sm font-medium text-gray-900" %>
+      </div>
+    </div>
+    <div class="mb-4">
+      <span class="block mb-1 text-sm font-medium text-gray-900">Flexibilidade de local:</span>
+      <div>
+        <%= f.check_box :buffet_exclusive_address, class:"w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3" %>
+        <%= f.label :buffet_exclusive_address, class:"ms-2 text-sm font-medium text-gray-900" %>
+      </div>
+      <div>
+        <%= f.check_box :client_specified_address, class:"w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3" %>
+        <%= f.label :client_specified_address, class:"ms-2 text-sm font-medium text-gray-900" %>
+      </div>
+    </div>
 
-  <div>
-    <%= f.submit 'Salvar alterações' %>
-  </div>
+    <div>
+      <span class="block mb-1 text-sm font-medium text-gray-900">Imagens do evento:</span>
+      <% @event_type.images.each do |image| %>
+        <div class="mb-4">
+          <%= image_tag image, class: "w-1/2" %>
+          <%= check_box_tag 'event_type[remove_image_ids][]', image.id, false, id: "remove_image_#{image.id}", class: "w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3" %>
+          <%= label_tag "remove_image_#{image.id}", 'Remover foto', class:"ms-2 text-sm font-medium text-gray-900" %>
+        </div>
+      <% end %>
 
-<% end %>
+      <% if @event_type.images.count < 4 %>
+        <%= f.label :images, 'Adicionar imagens do evento', class:"block mb-1 text-sm font-medium text-gray-900" %>
+        <%= f.file_field :images, multiple: true, class:"block w-full text-md text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" %>
+      <% else %>
+        <span>Limite imagems foi atigindo</span>
+      <% end %>
+    </div>
+
+    <div class="my-8">
+      <%= f.submit 'Salvar alterações', class:"text-white bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center cursor-pointer" %>
+    </div>
+  <% end %>
+
+<div>
