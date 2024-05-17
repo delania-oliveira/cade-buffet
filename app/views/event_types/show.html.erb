@@ -1,95 +1,114 @@
-<div>
-  <section>
-    <h2>Detalhes do Evento</h2>
-    
-      <% if @event_type.images.any?  %>
-        <div>
-          <% @event_type.images.each do |image| %>
-            <%= image_tag image %>
-          <% end %>
-        </div>
-      <% end %>
-
-      <% if @event_type.images.count < 4 %>
-        <span><%= link_to 'Adicionar imagens do evento', edit_event_type_path(@event_type) %></span>
-      <% end %>
-
-    <div>
-      <span>Nome do evento:</span>
-      <span><%= @event_type.name %></span>
-    </div>
-    <div>
-      <span>Descrição:</span>
-      <span><%= @event_type.description %></span>
-    </div>
-    <div>
-      <span>Capacidade mínima de pessoas:</span>
-      <span><%= @event_type.capacity_min %></span>
-    </div>
-    <div>
-      <span>Capacidade máxima de pessoas:</span>
-      <span><%= @event_type.capacity_max %></span>
-    </div>
-    <div>
-      <span>Duração em minutos:</span>
-      <span><%= @event_type.duration %></span>
-    </div>
-    <div>
-      <span>Tipo de cardápio:</span>
-      <span><%= @event_type.food_menu %></span>
-    </div>
-    <div>
-      <span>Serviços Oferecidos:</span>
+<div class="mx-auto grid grid-cols-2 gap-4 max-w-7xl justify-between p-6 px-8">
+  <div class="p-8 bg-white border border-gray-200 rounded-lg shadow ">
+    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Detalhes do Evento</h2>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Nome do Evento:</span> <%= @event_type.name %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Descrição:</span> <%= @event_type.description %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Capacidade mínima de pessoas:</span> <%= @event_type.capacity_min %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Capacidade máxima de pessoas:</span> <%= @event_type.capacity_max %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Duração:</span> <%= @event_type.duration %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Tipo de cardápio:</span> <%= @event_type.food_menu %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Serviços Oferecidos: </span>
       <% if @event_type.alcoholic_drinks? %>
-        <span><%= EventType.human_attribute_name(:alcoholic_drinks) %></span>
+        <%= EventType.human_attribute_name(:alcoholic_drinks) %>
       <% end %>
       <% if @event_type.decoration? %>
-        <span><%= EventType.human_attribute_name(:decoration) %></span>
+        <%= EventType.human_attribute_name(:decoration) %>
       <% end %>
       <% if @event_type.parking_service? %>
-        <span><%= EventType.human_attribute_name(:parking_service) %></span>
+        <%= EventType.human_attribute_name(:parking_service) %>
       <% end %>
-    </div>
-    <div>
-      <span>Flexibilidade de local:</span>
+    </p>
+    <p class="mb-3 font-normal text-gray-700">
+      <span class="text-muted-foreground">Flexibilidade de local: </span>
       <% if @event_type.buffet_exclusive_address? %>
-        <span><%= EventType.human_attribute_name(:buffet_exclusive_address) %></span>
+        <%= EventType.human_attribute_name(:buffet_exclusive_address) %>
       <% end %>
       <% if @event_type.client_specified_address? %>
-        <span><%= EventType.human_attribute_name(:client_specified_address) %></span>
+        <%= EventType.human_attribute_name(:client_specified_address) %>
+      <% end %>
+    </p>
+
+    <% if @event_type.images.any?  %>
+    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 mt-8">Galeria</h2>
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <% @event_type.images.each do |image| %>
+        <%= image_tag image, class: "w-full h-auto" %>
       <% end %>
     </div>
-
-    <section>
-      <h3>Valores do preço-base</h3>
-      <% if @event_type.base_prices.any? %>
-        <% @event_type.base_prices.each do |config| %>
-          <div>
-            <span><%= config.title %></span>
-            <span>Valor mínimo: <%= number_to_currency(config.minimum_value) %></span>
-            <span>Valor adicional por pessoa: <%= number_to_currency(config.additional_value_per_person) %></span>
-            <span>Valor por hora extra: <%= number_to_currency(config.extra_hour_value) %></span>
-            <% if current_user&.buffet_owner? && @event_type.buffet == current_user.buffet %>
-              <span><%= link_to 'Editar valores', edit_base_price_path(config) %></span>
-            <% end %>
-          </div>
-        <% end %>
-      <% else %>
-        <p>Nenhum preço-base foi cadastrado</p>
-      <% end %>
-    </section>
-
+  <% end %>
+    
     <% if current_user&.buffet_owner? && @event_type.buffet == current_user.buffet %>
-      <span><%= link_to 'Editar Informações', edit_event_type_path(@event_type) %></span>
-      <% if @event_type.base_prices.count < 2 %>
-        <span><%= link_to 'Definir preço-base', new_event_type_base_price_path(@event_type) %></span>
-      <% end %>   
-      <span><%= link_to 'Voltar', buffet_path(@event_type.buffet) %></span>
-      <% else %>
-        <span><%= link_to 'Voltar', root_path %></span>
-        <% if current_user&.client? %>
-          <span><%= link_to 'Contratar Evento', new_event_type_order_path(@event_type) %></span>
+      <div class="flex justify-around items-center">
+        <% if @event_type.images.count < 4 %>
+          <%= link_to 'Adicionar imagens do evento', edit_event_type_path(@event_type), class:"text-white bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm w-sm px-5 py-2.5 text-center" %>
         <% end %>
+        <%= link_to 'Editar Informações', edit_event_type_path(@event_type), class:"text-sm inline-block px-6 py-2.5 rounded-lg hover:shadow-sm hover:bg-accent hover:text-accent-foreground" %>
+        <%= link_to 'Voltar', buffet_path(@event_type.buffet), class:"text-sm inline-block px-6 py-2.5 rounded-lg hover:shadow-sm hover:bg-accent hover:text-accent-foreground" %>
+      </div>
+    <% else %>
+      <%= link_to 'Voltar', root_path, class:"text-sm inline-block px-6 py-2.5 rounded-lg hover:shadow-sm hover:bg-accent hover:text-accent-foreground" %>
     <% end %>
-  </section>
+    
+    <% if current_user&.client? %>
+      <%= link_to 'Contratar Evento', new_event_type_order_path(@event_type), class:"text-white bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm w-sm px-5 py-2.5 text-center" %>
+    <% end %>
+  </div>
+  <div class="p-8 bg-white border border-gray-200 rounded-lg shadow">
+    <div class="flex items-center justify-between mb-4">
+        <h5 class="text-xl font-bold leading-none text-gray-900 ">Valores do preço-base</h5>
+        <% if @event_type.base_prices.count < 2 %>
+          <%= link_to 'Definir preço-base', new_event_type_base_price_path(@event_type), class:"text-white bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm w-sm px-5 py-2.5 text-center" %>
+        <% end %> 
+    </div>
+    <% if @event_type.base_prices.any? %>
+      <div class="flow-root">
+        <ul role="list" class="divide-y divide-gray-200 ">
+          <% @event_type.base_prices.each do |config| %>
+            <li class="py-4">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <i class="fa-solid fa-calendar-day text-muted-foreground text-2xl"></i>
+                </div>
+                <div class="flex-1 min-w-0 ms-4">
+                  <p class="text-md font-medium text-foreground truncate ">
+                    <%= config.title %>
+                  </p>
+                  <p class="text-md font-medium text-foreground truncate ">
+                    <span class="text-muted-foreground">Valor mínimo:</span> <%= number_to_currency(config.minimum_value) %>
+                  </p>
+                  <p class="text-md font-medium text-foreground truncate ">
+                    <span class="text-muted-foreground">Valor adicional por pessoa:</span> <%= number_to_currency(config.additional_value_per_person) %>
+                  </p>
+                  <p class="text-md font-medium text-foreground truncate ">
+                    <span class="text-muted-foreground">Valor por hora extra:</span> <%= number_to_currency(config.extra_hour_value) %>
+                  </p>
+
+                </div>
+                <% if current_user&.buffet_owner? && @event_type.buffet == current_user.buffet %>
+                  <div class="inline-flex items-center">
+                    <span><%= link_to 'Editar valores', edit_base_price_path(config), class:"text-sm border border-border inline-block px-5 py-2.5 rounded-lg shadow-sm hover:bg-accent hover:text-accent-foreground" %></span>
+                  </div>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% else %>
+      <p>Nenhum preço-base foi cadastrado</p>
+    <% end %>
+  </div>
 </div>
