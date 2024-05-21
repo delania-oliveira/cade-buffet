@@ -102,11 +102,8 @@ describe 'Visualização do Buffet:' do
       expect(page).to  have_content 'CNPJ: 13579246000190'
       expect(page).to  have_content 'Telefone: 1133334444'
       expect(page).to  have_content 'E-mail: contato@harmoniadosabores.com.br'
-      expect(page).to  have_content 'Endereço: Rua das Delícias, 789 - Vila Gastronômica'
-      expect(page).to  have_content 'CEP: 98765432'
-      expect(page).to  have_content 'Cidade: Cidade dos Sabores'
-      expect(page).to  have_content 'Estado: Minas Gerais'
-      expect(page).to  have_content 'Meios de Pagamento: Cartões de crédito, débito, transferência bancária e dinheiro'
+      expect(page).to  have_content 'Endereço: Rua das Delícias, 789, Vila Gastronômica. CEP: 98765432. Cidade dos Sabores - Minas Gerais.'
+      expect(page).to  have_content 'Meios de pagamento aceitos: Cartões de crédito, débito, transferência bancária e dinheiro'
       expect(page).not_to  have_link 'Editar Informações'
       expect(page).not_to  have_link 'Criar Evento'
     end
