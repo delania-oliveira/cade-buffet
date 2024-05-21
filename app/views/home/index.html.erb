@@ -24,11 +24,15 @@
 
     <div class="grid grid-cols-3 gap-4 mx-auto justify-center content-center">
       <% @buffets.each do |buffet| %>
-        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow flex flex-col">
           <img class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
-          <div class="p-5">
-            <%= link_to buffet.brand_name, buffet, class:"mb-2 text-2xl font-semibold tracking-tight text-primary hover:text-primary/90" %>
-            <p class="mb-3 font-normal text-muted-foreground"><i class="fa-solid fa-location-dot"></i> <%= buffet.city %> - <%= buffet.state %></p>
+          <div class="p-5 flex-grow flex flex-col h-full">
+            <div class="flex-grow mb-2">
+              <%= link_to buffet.brand_name, buffet, class:"mb-2 text-2xl font-semibold tracking-tight text-primary hover:text-primary/90 hover:underline" %>
+            </div>
+            <div class="mt-auto">
+              <p class="mb-3 font-normal text-muted-foreground"><i class="fa-solid fa-location-dot"></i> <%= buffet.city %> - <%= buffet.state %></p>
+            </div>
           </div>
         </div>
       <% end %>
