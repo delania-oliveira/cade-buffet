@@ -4,7 +4,7 @@ describe 'Usuario visita a tela inicial' do
   it 'e vê o nome da aplicação' do
     visit root_path
 
-    expect(page).to have_content 'Cadê Buffet?'
+    expect(page).to have_css "img[src*='/logo_cadebuffet.png']"
   end
   it 'e vê botões para criar conta e entrar' do
     visit root_path
