@@ -1,7 +1,9 @@
 
 <div class="relative flex w-full h-full items-center bg-secondary">
   <div class="absolute top-10 left-10">
-    <%= link_to 'Cadê Buffet?', root_path %>
+    <%= link_to root_path do %>
+      <%= image_tag "/logo_cadebuffet.png", alt: 'Logotipo cadê buffet', class: 'h-12 w-auto' %>
+    <% end %>
   </div>
   <div class="flex-1">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "max-w-sm mx-auto"}) do |f| %>
@@ -55,7 +57,7 @@
       </div>
 
       <div class="flex justify-center mx-auto my-8">
-        <span>Já tem um cadastro? <%= link_to 'Faça login!', new_user_registration_path, class: "hover:underline"%></span>
+        <span>Já tem um cadastro? <%= link_to 'Faça login!', new_user_session_path, class: "hover:underline"%></span>
       </div>
     <% end %>
   </div>

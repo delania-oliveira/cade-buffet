@@ -14,10 +14,9 @@
       <header class="bg-[#e4e4e499] backdrop-blur relative z-50">
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 px-8" aria-label="Global">
           <div class="flex flex-1">
-            <a href="#" class="-m-1.5 p-1.5">
-              <span class="sr-only"><%= link_to 'Cadê Buffet?', root_path %></span>
-              <!-- <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""> -->
-            </a>
+            <%= link_to root_path, class: '-m-1.5 p-1.5' do %>
+              <%= image_tag "/logo_cadebuffet.png", alt: 'Logotipo cadê buffet', class: 'h-12 w-auto' %>
+            <% end %>
           </div>
             <% if !current_page?(root_path) %>
               <%= form_with(url: search_buffets_path, method: :get, html: { class:"max-w-lg mx-auto" }) do |f| %>
