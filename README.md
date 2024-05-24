@@ -1,4 +1,35 @@
 # README
+
+## Cadê Buffet?
+#### Descrição do Projeto
+Organizar uma confraternização, seja uma festa, casamento ou evento corporativo, pode ser desafiador devido às diversas necessidades envolvidas, como alimentação, espaço e organização. Para lidar com essas demandas, muitas vezes é necessário contratar um buffet, uma empresa especializada em organizar eventos completos.
+
+Contudo, encontrar o buffet ideal para cada tipo de evento pode ser difícil. É nesse contexto que surge o projeto Cadê Buffet?
+
+#### Objetivo
+O Cadê Buffet? tem como objetivo facilitar a busca e a contratação de buffets para diferentes tipos de eventos, conectando donos de buffets com pessoas que precisam de seus serviços.
+
+## Visualização de Telas 
+
+| | |
+|:-------------------------:|:-------------------------:|
+|<img src="/screenshots/home.png" width="100%" alt="home"/> |  <img src="/screenshots/signup.png" width="100%" alt="signup"/>|
+|<img src="/screenshots/event-details.png" width="100%" alt="event-details"/> | <img src="/screenshots/buffet-details.png" width="100%" alt="event-details"/>|
+
+
+## Instalando e Rodando o projeto
+
+* Versão do Ruby: 3.2.2
+* Instalar projeto: 
+  ```bash
+  bundle install
+  bundle exec rake assets:precompile
+  rails db:migrate db:seed
+  ```
+* Rodar o projeto: `bin/dev`
+* Rodar o projeto para uso da API: `rails server`
+* Rodar os testes: `rspec`
+
 ## API Endpoints
 
 ### Listagem de Buffets
@@ -116,27 +147,5 @@
   se já houver um pedido confirmado para a mesma data e tipo de evento.
   - `{ "initial_price": <preço> }` 
   se o pedido estiver disponível. O preço inicial é calculado com base no tipo de evento, número de convidados e data.
-
-----
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  ---
+  <center>Proposto por [TreinaDev](https://treinadev.com.br/) e feito por Delania Oliveira</center>
