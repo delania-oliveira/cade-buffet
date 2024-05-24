@@ -1,74 +1,132 @@
 <% if current_user.buffet_owner? %>
-  <h1>Pedidos</h1>
-  <h2>Pedidos aguardando avaliação</h2>
-  <% if @pending_orders.any? %>
-    <table>
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Tipo de evento</th>
-          <th>Data do evento</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @pending_orders.each do |order| %>
-          <tr>
-            <td><%= link_to order.code, order_path(order) %></td>
-            <td><%= order.event_type.name %></td>
-            <td><%= order.date.strftime("%d/%m/%Y") %></td>
-            <td><%= Order.human_enum_name(:status, order.status) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <span>Nenhum pedido aguardando avaliação</span>
-  <% end %>
-  <% if @confirmed_orders.any? || @canceled_orders.any? || @waiting_orders.any? %>
-    <table>
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Tipo de evento</th>
-          <th>Data do evento</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% Order.where(event_type: current_user.buffet.event_types, status: ['confirmed', 'canceled', 'waiting']).each do |order| %>
-          <tr>
-            <td><%= link_to order.code, order_path(order) %></td>
-            <td><%= order.event_type.name %></td>
-            <td><%= order.date.strftime("%d/%m/%Y") %></td>
-            <td><%= Order.human_enum_name(:status, order.status) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+  <div class="mx-auto max-w-7xl justify-between p-6">
+    <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900">Pedidos aguardando avaliação</h2>
+    <% if @pending_orders.any? %>
+      <div class="relative overflow-x-auto shadow-md rounded-lg mb-5">
+        <table class="w-full text-sm">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                Código
+              </th>
+              <th scope="col" class="text-center px-6 py-3">
+                Tipo de evento
+              </th>
+              <th scope="col" class="text-center px-6 py-3">
+                Data do evento
+              </th>
+              <th scope="col" class="text-center px-6 py-3">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @pending_orders.each do |order| %>
+              <tr class="bg-white border-b hover:bg-gray-50">
+                <th scope="row" class="px-6 py-4 font-medium  text-primary whitespace-nowrap">
+                  <%= link_to order.code, order_path(order), class: "hover:underline" %>
+                </th>
+                <td class="text-center px-6 py-4">
+                  <%= order.event_type.name %>
+                </td>
+                <td class="text-center px-6 py-4">
+                  <%= order.date.strftime("%d/%m/%Y") %>
+                </td>
+                <td class="text-center px-6 py-4">
+                  <%= Order.human_enum_name(:status, order.status) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="text-center text-gray-600">Nenhum pedido aguardando avaliação</p>
+    <% end %>
 
+    <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900">Pedidos</h2>
+    <% if @confirmed_orders.any? || @canceled_orders.any? || @waiting_orders.any? %>
+      <div class="relative overflow-x-auto shadow-md rounded-lg mb-5">
+        <table class="w-full text-sm">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                Código
+              </th>
+              <th scope="col" class="text-center px-6 py-3">
+                Tipo de evento
+              </th>
+              <th scope="col" class="text-center px-6 py-3">
+                Data do evento
+              </th>
+              <th scope="col" class="text-center px-6 py-3">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Order.where(event_type: current_user.buffet.event_types, status: ['confirmed', 'canceled', 'waiting']).each do |order| %>
+              <tr class="bg-white border-b hover:bg-gray-50">
+                <th scope="row" class="px-6 py-4 font-medium  text-primary whitespace-nowrap">
+                  <%= link_to order.code, order_path(order), class: "hover:underline" %>
+                </th>
+                <td class="text-center px-6 py-4">
+                  <%= order.event_type.name %>
+                </td>
+                <td class="text-center px-6 py-4">
+                  <%= order.date.strftime("%d/%m/%Y") %>
+                </td>
+                <td class="text-center px-6 py-4">
+                  <%= Order.human_enum_name(:status, order.status) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
 <% else %>
-  <h1>Meus pedidos</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Código</th>
-        <th>Tipo de evento</th>
-        <th>Data do evento</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% current_user.orders.each do |order| %>
-        <tr>
-          <td><%= link_to order.code, order_path(order) %></td>
-          <td><%= order.event_type.name %></td>
-          <td><%= order.date.strftime("%d/%m/%Y") %></td>
-          <td><%= Order.human_enum_name(:status, order.status) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="mx-auto max-w-7xl justify-between p-6">
+    <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900">Meus pedidos</h2>
+    <div class="relative overflow-x-auto shadow-md rounded-lg">
+      <table class="w-full text-sm">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Código
+            </th>
+            <th scope="col" class="text-center px-6 py-3">
+              Tipo de evento
+            </th>
+            <th scope="col" class="text-center px-6 py-3">
+              Data do evento
+            </th>
+            <th scope="col" class="text-center px-6 py-3">
+              Status
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% current_user.orders.each do |order| %>
+            <tr class="bg-white border-b hover:bg-gray-50">
+              <th scope="row" class="px-6 py-4 font-medium  text-primary whitespace-nowrap">
+                <%= link_to order.code, order_path(order), class: "hover:underline" %>
+              </th>
+              <td class="text-center px-6 py-4">
+                <%= order.event_type.name %>
+              </td>
+              <td class="text-center px-6 py-4">
+                <%= order.date.strftime("%d/%m/%Y") %>
+              </td>
+              <td class="text-center px-6 py-4">
+                <%= Order.human_enum_name(:status, order.status) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 <% end %>
 
