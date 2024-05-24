@@ -6,7 +6,7 @@
 <% end %>
 
 <h1>Pedido: <%= @order.code %> </h1>
-<span>Status: <%= I18n.t("activerecord.attributes.order.statuses.#{@order.status}") %></span>
+<span>Status: <%= Order.human_enum_name(:status, @order.status) %></span>
 
 <div>
   <section>

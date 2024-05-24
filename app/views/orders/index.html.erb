@@ -17,12 +17,12 @@
             <td><%= link_to order.code, order_path(order) %></td>
             <td><%= order.event_type.name %></td>
             <td><%= order.date.strftime("%d/%m/%Y") %></td>
-            <td><%= I18n.t("activerecord.attributes.order.statuses.#{Order.statuses.key(order.status)}") %></td>
+            <td><%= Order.human_enum_name(:status, order.status) %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
-  <% else %> %>
+  <% else %>
     <span>Nenhum pedido aguardando avaliação</span>
   <% end %>
   <% if @confirmed_orders.any? || @canceled_orders.any? || @waiting_orders.any? %>
@@ -41,7 +41,7 @@
             <td><%= link_to order.code, order_path(order) %></td>
             <td><%= order.event_type.name %></td>
             <td><%= order.date.strftime("%d/%m/%Y") %></td>
-            <td><%= I18n.t("activerecord.attributes.order.statuses.#{Order.statuses.key(order.status)}") %></td>
+            <td><%= Order.human_enum_name(:status, order.status) %></td>
           </tr>
         <% end %>
       </tbody>
@@ -65,7 +65,7 @@
           <td><%= link_to order.code, order_path(order) %></td>
           <td><%= order.event_type.name %></td>
           <td><%= order.date.strftime("%d/%m/%Y") %></td>
-          <td><%= I18n.t("activerecord.attributes.order.statuses.#{Order.statuses.key(order.status)}") %></td>
+          <td><%= Order.human_enum_name(:status, order.status) %></td>
         </tr>
       <% end %>
     </tbody>
