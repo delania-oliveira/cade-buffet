@@ -1,25 +1,26 @@
 <%= form_with(model: @order) do |f| %>
-  <div>
-    <%= f.label :payment_method %>
-    <%= f.text_field :payment_method %>
+  <div class="mb-4">
+    <%= f.label :payment_method, class:"block mb-1 text-sm font-medium text-gray-900" %>
+    <%= f.text_field :payment_method, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
   </div>
-  <div>
-    <%= f.label :discount %>
-    <%= f.number_field :discount %>
+  <div class="mb-4">
+    <%= f.label :discount, class:"block mb-1 text-sm font-medium text-gray-900" %>
+    <%= f.number_field :discount, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
   </div>
-  <div>
-    <%= f.label :extra_fee %>
-    <%= f.number_field :extra_fee %>
+  <div class="mb-4">
+    <%= f.label :extra_fee, class:"block mb-1 text-sm font-medium text-gray-900" %>
+    <%= f.number_field :extra_fee, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
   </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
+  <div class="mb-4">
+    <%= f.label :description, class:"block mb-1 text-sm font-medium text-gray-900" %>
+    <%= f.text_area :description, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
   </div>
-  <div>
-    <%= f.label :expiry_date %>
-    <%= f.date_field :expiry_date %>
+  <div class="mb-4">
+    <%= f.label :expiry_date, class:"block mb-1 text-sm font-medium text-gray-900" %>
+    <%= f.date_field :expiry_date, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
   </div>
-  <div>
-    <%= f.submit 'Aprovar pedido' %>
+  <div class="mb-4 flex flex-row justify-between gap-2 items-center">
+    <%= button_to 'Cancelar pedido', canceled_order_path(@order), method: :post, class:"w-1/2 text-sm inline-block px-6 py-2.5 rounded-lg hover:shadow-sm hover:bg-accent hover:text-accent-foreground" %>
+    <%= f.submit 'Aprovar pedido', class:"w-1/2 text-white bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm px-6 py-2.5 text-center cursor-pointer" %>
   </div>
 <% end %>

@@ -178,17 +178,23 @@ describe 'Dono de Buffet' do
     click_on 'ORDERCD0'
 
     expect(page).to have_content 'Atenção: Existe outro pedido para o mesmo dia!'
-    expect(page).to have_content 'Pedido: ORDERCD0'
-    expect(page).to have_content 'Status: Aguardando avaliação do buffet'
+    expect(page).to have_content 'ORDERCD0'
+    expect(page).to have_content 'Aguardando avaliação do buffet'
     expect(page).to have_content "Nome: #{client.name}"
     expect(page).to have_content "Data do pedido: #{order_a.created_at.strftime("%d/%m/%Y")}"
-    expect(page).to have_content 'Detalhes'
-    expect(page).to have_content "Nome do buffet: #{buffet.brand_name}"
-    expect(page).to have_content "Tipo de evento: #{event.name}"
-    expect(page).to have_content "Data do evento: #{order_a.date.strftime("%d/%m/%Y")}"
-    expect(page).to have_content 'Quantidade estimada de convidados: 150'
-    expect(page).to have_content 'Detalhes do evento: Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.'
-    expect(page).to have_content 'Endereço do evento: Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo'
+    expect(page).to have_content 'Detalhes do Pedido'
+    expect(page).to have_content "Nome do buffet:"
+    expect(page).to have_content "#{buffet.brand_name}"
+    expect(page).to have_content "Tipo de evento:"
+    expect(page).to have_content "#{event.name}"
+    expect(page).to have_content "Data do evento:"
+    expect(page).to have_content "#{order_a.date.strftime("%d/%m/%Y")}"
+    expect(page).to have_content 'Quantidade estimada de convidados:'
+    expect(page).to have_content '150'
+    expect(page).to have_content 'Detalhes do evento:'
+    expect(page).to have_content 'Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.'
+    expect(page).to have_content 'Endereço do evento:'
+    expect(page).to have_content 'Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo'
     expect(page).to have_content 'Valor padrão: R$ 35.000,00'
     expect(page).to have_field 'Forma de pagamento'
     expect(page).to have_field 'Desconto(%)'
@@ -261,13 +267,17 @@ describe 'Dono de Buffet' do
     fill_in 'Válido até', with: '2024-06-20'
     click_on 'Aprovar pedido'
 
-    expect(page).to have_content 'Status: Aguardando confirmação'
+    expect(page).to have_content 'Aguardando confirmação'
     expect(page).to have_content 'Valor padrão: R$ 25.000,00'
-    expect(page).to have_content 'Forma de pagamento: Pix'
-    expect(page).to have_content 'Desconto: 5%'
-    expect(page).to have_content 'Descrição: A quantidade de convidados não atigiu o limite mínimo'
+    expect(page).to have_content 'Forma de pagamento:'
+    expect(page).to have_content 'Pix'
+    expect(page).to have_content 'Desconto:'
+    expect(page).to have_content '5%'
+    expect(page).to have_content 'Descrição:'
+    expect(page).to have_content 'A quantidade de convidados não atigiu o limite mínimo'
     expect(page).to have_content 'Valor total: R$ 23.750,00'
-    expect(page).to have_content 'Válido até: 20/06/2024'
+    expect(page).to have_content 'Válido até:'
+    expect(page).to have_content '20/06/2024'
     expect(page).to have_link 'Voltar'  
   end
   it 'e cancela o pedido' do
@@ -328,7 +338,7 @@ describe 'Dono de Buffet' do
     click_on 'Cancelar pedido'
 
     expect(page).to have_content 'Pedido cancelado com sucesso'
-    expect(page).to have_content 'Status: Pedido cancelado'
+    expect(page).to have_content 'Pedido cancelado'
     expect(page).to have_link 'Voltar'  
   end
 end  

@@ -158,17 +158,23 @@ describe 'Usuário cliente' do
     click_on 'Fazer pedido'
 
     expect(page).to have_content 'Pedido realizado com sucesso'
-    expect(page).to have_content "Pedido: #{Order.last.code}"
-    expect(page).to have_content "Status: Aguardando avaliação do buffet"
+    expect(page).to have_content "#{Order.last.code}"
+    expect(page).to have_content "Aguardando avaliação do buffet"
     expect(page).to have_content "Nome: #{client.name}"
     expect(page).to have_content "Data do pedido: #{Order.last.created_at.strftime("%d/%m/%Y")}"
     expect(page).to have_content 'Detalhes'
-    expect(page).to have_content "Nome do buffet: #{buffet.brand_name}"
-    expect(page).to have_content "Tipo de evento: #{event.name}"
-    expect(page).to have_content "Data do evento: #{Order.last.date.strftime("%d/%m/%Y")}"
-    expect(page).to have_content 'Quantidade estimada de convidados: 150'
-    expect(page).to have_content 'Detalhes do evento: Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.'
-    expect(page).to have_content 'Endereço do evento: Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo'
+    expect(page).to have_content "Nome do buffet:"
+    expect(page).to have_content "#{buffet.brand_name}"
+    expect(page).to have_content "Tipo de evento:"
+    expect(page).to have_content "#{event.name}"
+    expect(page).to have_content "Data do evento:"
+    expect(page).to have_content "#{Order.last.date.strftime("%d/%m/%Y")}"
+    expect(page).to have_content 'Quantidade estimada de convidados:'
+    expect(page).to have_content '150'
+    expect(page).to have_content 'Detalhes do evento:'
+    expect(page).to have_content 'Evento de confraternização de fim de ano da empresa ABC Corp., incluindo jantar e entretenimento ao vivo.'
+    expect(page).to have_content 'Endereço do evento:'
+    expect(page).to have_content 'Rua das Palmeiras, 500, Bairro Jardim Tropical, Cidade Sol, São Paulo'
   end
   it 'e faz pedido com dados incompletos' do
     client = User.create!(role: 'client', name: 'Janne', individual_registration: '23361142083', email: 'jsne@email.com', password: 'password')

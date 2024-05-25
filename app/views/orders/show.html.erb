@@ -1,88 +1,109 @@
 <% if current_user.buffet_owner? && @same_date_orders.count > 1 %>
-  <span>Atenção: Existe outro pedido para o mesmo dia!</span>
+  <div class="mx-auto max-w-7xl px-8 my-4">
+    <div class="flex justify-center items-center p-4 text-sm text-yellow-800 rounded-lg bg-yellow-50">
+      <div>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span class="font-medium">Atenção: Existe outro pedido para o mesmo dia!</span> 
+      </div>
+    </div>
+  </div>
 <% end %>
 <% if current_user.client? && @order.expired? %>
-  <span>Atenção: A data para confirmação do pedido expirou!</span>
+  <div class="mx-auto max-w-7xl px-8 my-4">
+    <div class="flex justify-center items-center p-4 text-sm text-red-800 rounded-lg bg-red-50">
+      <div>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span class="font-medium">Atenção: A data para confirmação do pedido expirou!</span> 
+      </div>
+    </div>
+  </div>
 <% end %>
 
-<h1>Pedido: <%= @order.code %> </h1>
-<span>Status: <%= Order.human_enum_name(:status, @order.status) %></span>
+<% if current_user.client? && @order.pending? %>
+  <div class="mx-auto max-w-7xl p-6 px-8">
+<% else %>
+  <div class="mx-auto grid grid-cols-2 gap-4 max-w-7xl justify-between p-6 px-8">
+<% end %>
+  <div class="p-8 bg-white border border-gray-200 rounded-lg shadow ">
+    <div class="flex flex-row justify-between items-center mb-5">
+      <span class="text-2xl bg-primary font-bold tracking-tight text-white px-1"><%= @order.code %></span>
+      <span class="bg-yellow-100 text-yellow-800 text-sm font-medium px-2.5 py-0.5 rounded-full">
+        <%= Order.human_enum_name(:status, @order.status) %>
+      </span>
+    </div>
+    <div class="flex flex-row justify-between items-center">
+      <p class="mb-3 text-gray-700 font-bold">
+        <span class="text-muted-foreground font-medium text-sm">Nome:</span> <%= @order.user.name %>
+      </p>
+      <p class="mb-3  text-gray-700 font-bold">
+        <span class="text-muted-foreground font-medium text-sm">Data do pedido:</span> <%= @order.created_at.strftime("%d/%m/%Y") %>
+      </p>
+    </div>
+    <hr class="h-px mb-10 bg-gray-200 border-0">
+    <h3 class="mb-5 text-xl font-bold tracking-tight text-foreground">Detalhes do Pedido</h3>
+    
+    <p class="text-muted-foreground font-medium text-sm">Nome do buffet:</p> 
+    <p class=" text-gray-700 font-bold mb-2"><%= @order.event_type.buffet.brand_name %></p>
+    
+    <p class="text-muted-foreground font-medium text-sm">Tipo de evento:</p> 
+    <p class=" text-gray-700 font-bold mb-2"><%= @order.event_type.name %></p>
 
-<div>
-  <section>
-    <span>Nome:</span>
-    <span><%= @order.user.name %></span>
-    <span>Data do pedido:</span>
-    <span><%= @order.created_at.strftime("%d/%m/%Y") %></span>
-  </section>
-  <section>
-    <h2>Detalhes:</h2>
-    <div>
-      <span>Nome do buffet:</span>
-      <span><%= @order.event_type.buffet.brand_name %></span>
+    <p class="text-muted-foreground font-medium text-sm">Data do evento:</p> 
+    <p class=" text-gray-700 font-bold mb-2"><%= @order.date.strftime("%d/%m/%Y") %></p>
+
+    <p class="text-muted-foreground font-medium text-sm">Quantidade estimada de convidados:</p> 
+    <p class=" text-gray-700 font-bold mb-2"><%= @order.guests %></p>
+
+    <p class="text-muted-foreground font-medium text-sm">Detalhes do evento:</p> 
+    <p class=" text-gray-700 font-bold mb-2"><%= @order.details %></p>
+
+    <% if @order.location? %>
+      <p class="text-muted-foreground font-medium text-sm">Endereço do evento:</p> 
+      <p class=" text-gray-700 font-bold mb-2"><%= @order.location %></p>
+    <% end %>
+
+    <div class="flex flex-row gap-4 justify-end items-cente mt-5">
+      <% if current_user.client? && @order.waiting? %>
+        <%= button_to 'Confirmar pedido', confirmed_order_path(@order), method: :post, class:"text-white bg-primary hover:bg-primary/90 font-medium rounded-lg text-sm w-sm px-6 py-2.5 text-center" %>
+        <%= button_to 'Cancelar pedido', canceled_order_path(@order), method: :post, class:"text-sm inline-block px-6 py-2.5 rounded-lg hover:shadow-sm hover:bg-accent hover:text-accent-foreground" %>
+      <% end %>
+      <%= link_to 'Voltar', orders_path, class:"text-sm inline-block px-6 py-2.5 rounded-lg hover:shadow-sm hover:bg-accent hover:text-accent-foreground" %>
     </div>
-    <div>
-      <span>Tipo de evento:</span>
-      <span><%= @order.event_type.name %></span>
-    </div>
-    
-    <div>
-      <span>Data do evento:</span>
-      <span><%= @order.date.strftime("%d/%m/%Y") %></span>
-    </div>
-    <div>
-      <span>Quantidade estimada de convidados:</span>
-      <span><%= @order.guests %></span>
-    </div>
-    <div>
-      <span>Detalhes do evento:</span>
-      <span><%= @order.details %></span>
-    </div>
-    <div>
-      <span>Endereço do evento:</span>
-      <span><%= @order.location %></span>
-    </div>
-  </section>
-    
-  <section>
-    <% if current_user.buffet_owner? && @order.pending? %>
+  </div>
+
+  <% if current_user.buffet_owner? && @order.pending? %>
+    <div class="p-8 bg-white border border-gray-200 rounded-lg shadow">
       <%= render 'default_price', order: @order %>
-      <div>
-        <span>Valor total: <%= number_to_currency(@order.total_amount) %></span> 
+      <hr class="h-px mb-10 bg-gray-200 border-0">
+      <div class="flex flex-row justify-between items-center">
+        <span class="font-medium text-muted-foreground">Valor total: </span><span class="font-bold text-2xl text-foreground"><%= number_to_currency(@order.total_amount) %></span> 
       </div>
+      <hr class="h-px mb-10 bg-gray-200 border-0">
       <%= render 'form' %>
-      <span><%= button_to 'Cancelar pedido', canceled_order_path(@order), method: :post %></span>
-    <% elsif @order.waiting? || @order.confirmed? %>
+  <% elsif @order.waiting? || @order.confirmed? %>
+    <div class="p-8 bg-white border border-gray-200 rounded-lg shadow">
       <%= render 'default_price', order: @order %>
-      <div>
-        <span>Forma de pagamento:</span>
-        <span><%= @order.payment_method %></span>
+
+      <p class="text-muted-foreground font-medium text-sm">Forma de pagamento:</p> 
+      <p class=" text-gray-700 font-bold mb-2"><%= @order.payment_method %></p>
+
+      <p class="text-muted-foreground font-medium text-sm">Desconto:</p> 
+      <p class=" text-gray-700 font-bold mb-2"><%= @order.discount %>%</p>
+
+      <p class="text-muted-foreground font-medium text-sm">Taxa extra:</p> 
+      <p class=" text-gray-700 font-bold mb-2"><%= @order.extra_fee %></p>
+
+      <p class="text-muted-foreground font-medium text-sm">Descrição:</p> 
+      <p class=" text-gray-700 font-bold mb-2"><%= @order.description %></p>
+
+      <p class="text-muted-foreground font-medium text-sm">Válido até:</p> 
+      <p class=" text-gray-700 font-bold mb-2"><%= @order.expiry_date.strftime("%d/%m/%Y") %></p>
+
+      <hr class="h-px mb-8 bg-gray-200 border-0">
+      <div class="flex flex-row justify-between items-center">
+        <span class="font-medium text-muted-foreground">Valor total: </span>
+        <span class="font-bold text-2xl text-foreground"><%= number_to_currency(@order.total_amount) %></span> 
       </div>
-      <div>
-        <span>Desconto:</span>
-        <span><%= @order.discount %>%</span>
-      </div>
-      <div>
-        <span>Taxa extra:</span>
-        <span><%= @order.extra_fee %></span>
-      </div>
-      <div>
-        <span>Descrição:</span>
-        <span><%= @order.description %></span>
-      </div>
-      <div>
-        <span>Valor total: </span>
-        <span><%= number_to_currency(@order.total_amount) %></span>
-      </div>
-      <div>
-        <span>Válido até:</span>
-        <span><%= @order.expiry_date.strftime("%d/%m/%Y") %></span>
-      </div>
-    <% end %>
-    <% if current_user.client? && @order.waiting? %>
-      <span><%= button_to 'Confirmar pedido', confirmed_order_path(@order), method: :post %></span>
-      <span><%= button_to 'Cancelar pedido', canceled_order_path(@order), method: :post %></span>
-    <% end %>
-    <span><%= link_to 'Voltar', orders_path %></span>
-  </section>
+      <hr class="h-px mt-8 bg-gray-200 border-0">
+  <% end %>
 </div>
