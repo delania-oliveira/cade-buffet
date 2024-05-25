@@ -15,7 +15,7 @@ O Cadê Buffet? tem como objetivo facilitar a busca e a contratação de buffets
 |:-------------------------:|:-------------------------:|
 |<img src="/screenshots/home.png" width="100%" alt="home"/> | <img src="/screenshots/signup.png" width="100%" alt="signup"/>|
 |<img src="/screenshots/event-details.png" width="100%" alt="event-details"/> | <img src="/screenshots/buffet-details.png" width="100%" alt="event-details"/>|  
-|<img src="/screenshots/orders.png" width="100%" alt="orders"/> | <img src="/screenshots/orders-details.png" width="100%" alt="orders-details"/>| 
+|<img src="/screenshots/orders.png" width="100%" alt="orders"/> | <img src="/screenshots/order-details.png" width="100%" alt="order-details"/>| 
 
 
 ## Instalando e Rodando o projeto
